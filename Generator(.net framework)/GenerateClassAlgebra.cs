@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Text;
 
@@ -112,7 +113,9 @@ namespace Generator_.net_framework_
 
         public static void writeOut(string text, string fileName, string languageExtension)
         {
-            File.WriteAllText(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\Generated\\" + fileName + "Algebra." + languageExtension), text);
+
+            string path = ConfigurationManager.AppSettings["inputPath"];
+            File.WriteAllText(path + fileName + "Algebra." + languageExtension, text);
 
         }
     }
