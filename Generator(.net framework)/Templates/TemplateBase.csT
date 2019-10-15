@@ -1,0 +1,24 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace #namespaceName#
+{
+	public class #className# 
+	{
+#properties#
+    		private #type# #prop#
+
+		public #className#(){}
+    
+#getter#
+		public #type# get#prop#() {
+        		return #prop#;
+    		}
+
+#setter#
+    		public void set#prop#(#type# newValue) {
+        		#prop# = newValue;
+    		}
+	}
+}
