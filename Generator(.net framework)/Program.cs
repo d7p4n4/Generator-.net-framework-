@@ -12,7 +12,10 @@ namespace Generator_.net_framework_
 
         #region constant
 
-        private const string APPSETTINGS_CLASSNAME = "className";
+        private static readonly string APPSETTINGS_LANGUAGE = ConfigurationManager.AppSettings["language"];
+        private static readonly string APPSETTINGS_NAMESPACE = ConfigurationManager.AppSettings["namespace"];
+        private static readonly string APPSETTINGS_CLASSNAME = ConfigurationManager.AppSettings["className"];
+        private static readonly string APPSETTINGS_OUTPUTPATH = ConfigurationManager.AppSettings["outputPath"];
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -34,9 +37,9 @@ namespace Generator_.net_framework_
 
             log.Debug("path:"+ GetAppConfigStringParameter(APPSETTINGS_CLASSNAME));
 
-            GenerateClass.generateClass("cs", "GuidGenerate", "Person", typeof(PersonStart));
+            GenerateClass.generateClass(APPSETTINGS_LANGUAGE, APPSETTINGS_NAMESPACE, APPSETTINGS_CLASSNAME, typeof(PersonStart), APPSETTINGS_OUTPUTPATH);
 
-            }
         }
+    }
     
 }

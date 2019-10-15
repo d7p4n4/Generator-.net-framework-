@@ -7,7 +7,7 @@ namespace Generator_.net_framework_
 {
     class GenerateClassEmpty
     {
-        public static void generateClass(string templateName, string languageExtension, string package, string className)
+        public static void generateClass(string templateName, string languageExtension, string package, string className, string outputPath)
         {
             string[] text = readIn(templateName, languageExtension);
 
@@ -22,7 +22,7 @@ namespace Generator_.net_framework_
             replaced = replaced.Replace("#className#", className);
             replaced = replaced.Replace("#parentClassName#", className + "Algebra");
 
-            writeOut(replaced, className, languageExtension);
+            writeOut(replaced, className, languageExtension, outputPath);
         }
 
         public static string[] readIn(string fileName, string languageExtension)
@@ -37,9 +37,9 @@ namespace Generator_.net_framework_
 
         }
 
-        public static void writeOut(string text, string fileName, string languageExtension)
+        public static void writeOut(string text, string fileName, string languageExtension, string outputPath)
         {
-            File.WriteAllText(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\Generated\\" + fileName + "." + languageExtension), text);
+            File.WriteAllText(outputPath + fileName + "." + languageExtension, text);
 
         }
     }

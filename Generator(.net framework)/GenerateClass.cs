@@ -7,7 +7,7 @@ namespace Generator_.net_framework_
 {
     class GenerateClass
     {
-        public static void generateClass(string languageExtension, string package, string className, Type anyType)
+        public static void generateClass(string languageExtension, string package, string className, Type anyType, string outputPath)
         {
 
             //get the properties and its type
@@ -157,14 +157,14 @@ namespace Generator_.net_framework_
 
             if (persistent && languageExtension.Equals("cs"))
             {
-                writeOut(replaced, className + "Persistent", languageExtension);
+                writeOut(replaced, className + "Persistent", languageExtension, outputPath);
             }
             else
             {
-                writeOut(replaced, className, languageExtension);
+                writeOut(replaced, className, languageExtension, outputPath);
             }
 
-            GenerateClassAlgebra.generateClass("Template", languageExtension, package, className, map);
+            GenerateClassAlgebra.generateClass("Template", languageExtension, package, className, map, outputPath);
         }
 
         public static string[] readIn(string fileName, string languageExtension)
@@ -180,9 +180,9 @@ namespace Generator_.net_framework_
 
         }
 
-        public static void writeOut(string text, string fileName, string languageExtension)
+        public static void writeOut(string text, string fileName, string languageExtension, string outputPath)
         {
-            System.IO.File.WriteAllText(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\Generated\\" + fileName + "Base." + languageExtension), text);
+            System.IO.File.WriteAllText(outputPath + fileName + "Base." + languageExtension, text);
 
         }
     }

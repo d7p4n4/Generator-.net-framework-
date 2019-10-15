@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Text;
 
@@ -8,7 +7,7 @@ namespace Generator_.net_framework_
 {
     class GenerateClassAlgebra
     {
-        public static void generateClass(string templateName, string languageExtension, string package, string className, Dictionary<string, string> map)
+        public static void generateClass(string templateName, string languageExtension, string package, string className, Dictionary<string, string> map, string outputPath)
         {
             string[] text = readIn(templateName, languageExtension);
 
@@ -93,9 +92,9 @@ namespace Generator_.net_framework_
             replaced = replaced.Replace("#className#", className + "Algebra");
             replaced = replaced.Replace("#parentClassName#", className + "Base");
 
-            writeOut(replaced, className, languageExtension);
+            writeOut(replaced, className, languageExtension, outputPath);
 
-            GenerateClassEmpty.generateClass(templateName, languageExtension, package, className);
+            GenerateClassEmpty.generateClass(templateName, languageExtension, package, className, outputPath);
         }
 
         public static string[] readIn(string fileName, string languageExtension)
@@ -111,11 +110,9 @@ namespace Generator_.net_framework_
 
         }
 
-        public static void writeOut(string text, string fileName, string languageExtension)
+        public static void writeOut(string text, string fileName, string languageExtension, string outputPath)
         {
-
-            string path = ConfigurationManager.AppSettings["inputPath"];
-            File.WriteAllText(path + fileName + "Algebra." + languageExtension, text);
+            File.WriteAllText(outputPath + fileName + "Algebra." + languageExtension, text);
 
         }
     }
