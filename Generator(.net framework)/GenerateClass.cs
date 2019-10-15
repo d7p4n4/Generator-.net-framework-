@@ -101,6 +101,7 @@ namespace Generator_.net_framework_
                     }
                     i++;
                 }
+                /*
                 else if (text[i].Equals("#getter#"))
                 {
                     foreach (var pair in map)
@@ -129,6 +130,7 @@ namespace Generator_.net_framework_
                     }
                     i = i + 3;
                 }
+                */
                 else if (!classAttr && text[i].Contains("public class #className#"))
                 {
                     if (text[i].Contains("#className#"))
@@ -153,14 +155,15 @@ namespace Generator_.net_framework_
                 }
             }
             replaced = replaced.Replace("#namespaceName#", package);
-            replaced = replaced.Replace("#className#", className + "Base");
 
             if (persistent && languageExtension.Equals("cs"))
             {
+                replaced = replaced.Replace("#className#", className + "PersistentPreProcessed");
                 writeOut(replaced, className + "Persistent", languageExtension, outputPath);
             }
             else
             {
+                replaced = replaced.Replace("#className#", className + "PreProcessed");
                 writeOut(replaced, className, languageExtension, outputPath);
             }
 
@@ -170,7 +173,7 @@ namespace Generator_.net_framework_
         public static string[] readIn(string fileName, string languageExtension)
         {
 
-            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\Templates\\", fileName + "Base." + languageExtension + "T");
+            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\Templates\\", fileName + "PreProcessed." + languageExtension + "T");
 
             string[] text = File.ReadAllLines(textFile);
             Console.WriteLine(textFile);
@@ -182,7 +185,7 @@ namespace Generator_.net_framework_
 
         public static void writeOut(string text, string fileName, string languageExtension, string outputPath)
         {
-            System.IO.File.WriteAllText(outputPath + fileName + "Base." + languageExtension, text);
+            System.IO.File.WriteAllText(outputPath + fileName + "PreProcessed." + languageExtension, text);
 
         }
     }
