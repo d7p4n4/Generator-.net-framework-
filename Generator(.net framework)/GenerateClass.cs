@@ -158,8 +158,8 @@ namespace Generator_.net_framework_
 
             if (persistent && languageExtension.Equals("cs"))
             {
-                replaced = replaced.Replace("#className#", className + "PersistentPreProcessed");
-                writeOut(replaced, className + "Persistent", languageExtension, outputPath);
+                replaced = replaced.Replace("#className#", className + "PreProcessed");
+                writeOut(replaced, className, languageExtension, outputPath);
             }
             else
             {

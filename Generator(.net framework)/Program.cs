@@ -37,6 +37,8 @@ namespace Generator_.net_framework_
 
             log.Debug("path:"+ GetAppConfigStringParameter(APPSETTINGS_CLASSNAME));
 
+            ReadIn.ReadLines();
+
             GenerateClass.generateClass(APPSETTINGS_LANGUAGE, APPSETTINGS_NAMESPACE, APPSETTINGS_CLASSNAME, typeof(PersonStart), APPSETTINGS_OUTPUTPATH);
 
         }
