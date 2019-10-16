@@ -1,0 +1,88 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+
+namespace #namespaceName#
+{
+    class EntityMethods
+    {
+#findFirstBy#
+        public static #className# findFirstBy#PropName#(#type# #propName#)
+        {
+            #className# #valueName# = null;
+
+            using (var ctx = new #classContextName#())
+            {
+                var query = ctx.#contextPropName#
+                                .Where(s => s.#propName# == #propName#)
+                                .FirstOrDefault<#className#>();
+
+                #valueName# = query;
+            }
+            return #valueName#;
+        }
+
+#findListBy#
+        public static IQueryable<#className#> findListBy#PropName#(#type# #propName#)
+        {
+            IQueryable<#className#> #valueName#;
+
+            using (var ctx = new #classContextName#())
+            {
+                var query = ctx.#contextPropName#
+                                .Where(s => s.#propName# == #propName#);
+
+                #valueName# = query;
+            }
+            return #valueName#;
+        }
+
+#exists#
+	public Boolean existsIn#className#By#PropName#(#type# #propName#)
+	{
+		#className# #valueName# = null;
+
+            using (var ctx = new #classContextName#())
+            {
+                var query = ctx.#contextPropName#
+                                .Where(s => s.#propName# == #propName#)
+                                .FirstOrDefault<#className#>();
+
+                #valueName# = query;
+            }
+                if(#valueName# != null)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+#deleteById#
+        public static void deleteById(#type# #propName#)
+        {
+            using (var ctx = new #classContextName#())
+            {
+                var query = ctx.#contextPropName#
+                                .Remove(ctx.#contextPropName#.Single(s => s.#propName# == #propName#));
+
+                ctx.SaveChanges();
+            }
+        }
+
+#adds#
+	public static void addNew#className#(#className# #valueName#)
+	{
+		using (var ctx = new #classContextName#())
+            {
+                ctx.#contextPropName#.Add(#valueName#);
+
+                ctx.SaveChanges();
+            }
+	}
+    }
+}

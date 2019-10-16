@@ -7,7 +7,6 @@ namespace Generator_.net_framework_
     public class PersonStart
     {
         public int id { get; set; }
-        [GUID()]
         public string name { get; set; }
         public string address { get; set; }
         public int age { get; set; }

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>#outputType#</OutputType>
+    <TargetFramework>#targetFramework#</TargetFramework>
+  </PropertyGroup>
+
+#folders#
+  <ItemGroup>
+    <Folder Include="#folderName#\" />
+  </ItemGroup>
+
+#packageReferences#
+  <ItemGroup>
+    <PackageReference Include="#packageName#" Version="#version#" />
+  </ItemGroup>
+
+</Project>

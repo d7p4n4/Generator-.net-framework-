@@ -2,6 +2,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace Generator_.net_framework_
 {
     class ReadIn
     {
-        public static Type ReadLines()
+        public static Type ReadLines(string inputPath, string namespaceAndClass)
         {
             int counter = 0;
             string line;
@@ -22,24 +23,40 @@ namespace Generator_.net_framework_
 
             cp.ReferencedAssemblies.Add("mscorlib.dll");
             cp.ReferencedAssemblies.Add("System.dll");
+            cp.ReferencedAssemblies.Add("System.ComponentModel.DataAnnotations.dll");
+            cp.ReferencedAssemblies.Add("System.ComponentModel.dll");
+            cp.ReferencedAssemblies.Add("System.Data.dll");
             StringBuilder sb = new StringBuilder();
-
-            System.IO.StreamReader file =
-                new System.IO.StreamReader(@"d:\Server\Visual_studio\GeneratedClasses\GeneratedClasses\PersonPersistentPreProcessed.cs");
+            
+           System.IO.StreamReader file =
+                new System.IO.StreamReader(inputPath);
             while ((line = file.ReadLine()) != null)
             {
-                sb.Append(line);
-                counter++;
+                if (line.Contains("GUID") || line.Contains("Persistent"))
+                {
+                    counter++;
+                }
+                else
+                {
+                    sb.Append(line + "\n");
+                    counter++;
+                }
             }
 
             // The string can contain any valid c# code
             // "results" will usually contain very detailed error messages
-            var results = csc.CompileAssemblyFromSource(cp, sb.ToString());
+            /*sb.Append("using System;");
+            sb.Append("using System.Text;");
+            sb.Append("using System.Data.Entity;");
+            sb.Append("namespace onTheFlyClass{");
+            sb.Append("public class MyClass : DbContext{");
+            sb.Append("public String Name { get; set; }");
+            sb.Append("}}");*/
+            CompilerResults results = csc.CompileAssemblyFromSource(cp, sb.ToString());
             System.Reflection.Assembly _assembly = results.CompiledAssembly;
             Type[] _types = _assembly.GetTypes();
-            Type eType = _assembly.GetType("GuidGenerate.PersonPreProcessed");
+            Type eType = _assembly.GetType(namespaceAndClass);
 
-            file.Close();
 
             return eType;
         }

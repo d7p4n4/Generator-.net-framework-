@@ -62,16 +62,17 @@ namespace Generator_.net_framework_
                         {
                             if (g.Key.Equals(pair.Key) && g.Value.Equals(""))
                             {
+                                
                                 Guid id = Guid.NewGuid();
                                 string newLine = "";
 
                                 if (languageExtension.Equals("cs"))
                                 {
-                                    newLine = "            [GUID(\"" + id + "\")]\n";
+                                    //newLine = "            [GUID(\"" + id + "\")]\n";
                                 }
                                 else if (languageExtension.Equals("java"))
                                 {
-                                    newLine = "            @GUID(\"" + id + "\")\n";
+                                    //newLine = "            @GUID(\"" + id + "\")\n";
                                 }
                                 newLine = newLine + text[i + 1].Replace("#type#", pair.Value);
                                 newLine = newLine.Replace("#prop#", pair.Key);
@@ -85,11 +86,11 @@ namespace Generator_.net_framework_
 
                                 if (languageExtension.Equals("cs"))
                                 {
-                                    newLine = "            [GUID(\"" + g.Value + "\")]\n";
+                                    //newLine = "            [GUID(\"" + g.Value + "\")]\n";
                                 }
                                 else if (languageExtension.Equals("java"))
                                 {
-                                    newLine = "            @GUID(\"" + g.Value + "\")\n";
+                                    //newLine = "            @GUID(\"" + g.Value + "\")\n";
                                 }
                                 newLine = newLine + text[i + 1].Replace("#type#", pair.Value);
                                 newLine = newLine.Replace("#prop#", pair.Key);
@@ -101,7 +102,7 @@ namespace Generator_.net_framework_
                     }
                     i++;
                 }
-                /*
+                
                 else if (text[i].Equals("#getter#"))
                 {
                     foreach (var pair in map)
@@ -130,7 +131,7 @@ namespace Generator_.net_framework_
                     }
                     i = i + 3;
                 }
-                */
+                
                 else if (!classAttr && text[i].Contains("public class #className#"))
                 {
                     if (text[i].Contains("#className#"))
@@ -140,11 +141,11 @@ namespace Generator_.net_framework_
 
                         if (languageExtension.Equals("cs"))
                         {
-                            newLine = "            [GUID(\"" + id + "\")]\n";
+                            //newLine = "            [GUID(\"" + id + "\")]\n";
                         }
                         else if (languageExtension.Equals("java"))
                         {
-                            newLine = "            @GUID(\"" + id + "\")\n";
+                            //newLine = "            @GUID(\"" + id + "\")\n";
                         }
                         replaced = replaced + newLine + text[i];
                     }

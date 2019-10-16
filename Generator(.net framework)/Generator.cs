@@ -8,7 +8,7 @@ namespace Generator_.net_framework_
 {
     class Generator
     {
-        public static void contextGenerate(List<Type> classes, string className, string baseName, string namespaceName, string fileName, string languageExtension)
+        public static void contextGenerate(List<Type> classes, string className, string baseName, string namespaceName, string fileName, string languageExtension, string outputPath)
         {
             string[] text = readIn(fileName + "Context", languageExtension);
             string replaced = "";
@@ -33,9 +33,9 @@ namespace Generator_.net_framework_
             }
             replaced = replaced.Replace("#className#", className).Replace("#baseName#", baseName).Replace("#namespaceName#", namespaceName);
 
-            writeOut(replaced, className + "Context", languageExtension);
+            writeOut(replaced, className + "Context", languageExtension, outputPath);
         }
-
+        /*
         public static void extensionGenerator(string namespaceName, string fileName, string languageExtension, string outputType, string targetFramework, List<string> folders, Dictionary<string, string> extensions)
         {
             string[] text = readIn(fileName, languageExtension);
@@ -116,8 +116,8 @@ namespace Generator_.net_framework_
 
             writeOut(replaced, "SaveTest", languageExtension);
         }
-
-        public static void generateEntityMethods(string fileName, string languageExtension, string namespaceName, Type classContextName, List<Type> classes)
+        */
+        public static void generateEntityMethods(string fileName, string languageExtension, string namespaceName, Type classContextName, List<Type> classes, string outputPath)
         {
 
             string[] text = readIn(fileName, languageExtension);
@@ -266,13 +266,13 @@ namespace Generator_.net_framework_
 
             replaced = replaced.Replace("#namespaceName#", namespaceName);
 
-            writeOut(replaced, "EntityMethods", languageExtension);
+            writeOut(replaced, "EntityMethods", languageExtension, outputPath);
         }
 
         public static string[] readIn(string fileName, string languageExtension)
         {
 
-            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\Templates\\", fileName + "." + languageExtension + "T");
+            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\Templates\\", fileName + "." + languageExtension + "T");
 
             string[] text = File.ReadAllLines(textFile);
 
@@ -281,9 +281,9 @@ namespace Generator_.net_framework_
 
         }
 
-        public static void writeOut(string text, string fileName, string languageExtension)
+        public static void writeOut(string text, string fileName, string languageExtension, string outputPath)
         {
-            System.IO.File.WriteAllText(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.Parent.FullName + "\\GeneratedClasses\\GeneratedClasses\\" + fileName + "." + languageExtension), text);
+            System.IO.File.WriteAllText(outputPath + fileName + "." + languageExtension, text);
 
         }
     }
