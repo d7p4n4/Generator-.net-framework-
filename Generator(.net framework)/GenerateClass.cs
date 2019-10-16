@@ -68,11 +68,11 @@ namespace Generator_.net_framework_
 
                                 if (languageExtension.Equals("cs"))
                                 {
-                                    //newLine = "            [GUID(\"" + id + "\")]\n";
+                                    newLine = "            [GUID(\"" + id + "\")]\n";
                                 }
                                 else if (languageExtension.Equals("java"))
                                 {
-                                    //newLine = "            @GUID(\"" + id + "\")\n";
+                                    newLine = "            @GUID(\"" + id + "\")\n";
                                 }
                                 newLine = newLine + text[i + 1].Replace("#type#", pair.Value);
                                 newLine = newLine.Replace("#prop#", pair.Key);
@@ -86,11 +86,11 @@ namespace Generator_.net_framework_
 
                                 if (languageExtension.Equals("cs"))
                                 {
-                                    //newLine = "            [GUID(\"" + g.Value + "\")]\n";
+                                    newLine = "            [GUID(\"" + g.Value + "\")]\n";
                                 }
                                 else if (languageExtension.Equals("java"))
                                 {
-                                    //newLine = "            @GUID(\"" + g.Value + "\")\n";
+                                    newLine = "            @GUID(\"" + g.Value + "\")\n";
                                 }
                                 newLine = newLine + text[i + 1].Replace("#type#", pair.Value);
                                 newLine = newLine.Replace("#prop#", pair.Key);
@@ -141,11 +141,11 @@ namespace Generator_.net_framework_
 
                         if (languageExtension.Equals("cs"))
                         {
-                            //newLine = "            [GUID(\"" + id + "\")]\n";
+                            newLine = "            [GUID(\"" + id + "\")]\n";
                         }
                         else if (languageExtension.Equals("java"))
                         {
-                            //newLine = "            @GUID(\"" + id + "\")\n";
+                            newLine = "            @GUID(\"" + id + "\")\n";
                         }
                         replaced = replaced + newLine + text[i];
                     }

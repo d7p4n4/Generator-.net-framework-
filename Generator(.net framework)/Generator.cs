@@ -79,8 +79,8 @@ namespace Generator_.net_framework_
 
             writeOut(replaced, namespaceName, languageExtension + "proj");
         }
-
-        public static void programGenerator(string fileName, string languageExtension, string namespaceName, string classContextName, Dictionary<string, string> values)
+        */
+        public static void programGenerator(string fileName, string languageExtension, string namespaceName, List<Type> classes, Dictionary<string, string> values, string outputPath)
         {
             string[] text = readIn(fileName, languageExtension);
             string replaced = "";
@@ -112,19 +112,18 @@ namespace Generator_.net_framework_
                 }
                 replaced = replaced + text[i] + "\n";
             }
-            replaced = replaced.Replace("#namespaceName#", namespaceName).Replace("#classContextName#", classContextName);
+            replaced = replaced.Replace("#namespaceName#", namespaceName).Replace("#classContextName#", classes[0].Name + "Context");
 
-            writeOut(replaced, "SaveTest", languageExtension);
+            writeOut(replaced, "SaveTest", languageExtension, outputPath);
         }
-        */
-        public static void generateEntityMethods(string fileName, string languageExtension, string namespaceName, Type classContextName, List<Type> classes, string outputPath)
+        
+        public static void generateEntityMethods(string fileName, string languageExtension, string namespaceName, List<Type> classes, string outputPath)
         {
 
             string[] text = readIn(fileName, languageExtension);
             string replaced = "";
             string newLine = "";
 
-            PropertyInfo[] conProps = classContextName.GetProperties();
             int y = 0;
 
             for (int i = 0; i < text.Length; i++)
@@ -145,7 +144,7 @@ namespace Generator_.net_framework_
                             newLine = newLine.Replace("#className#", c.Name).Replace("#propName#", prop.Key)
                                              .Replace("#PropName#", prop.Key.Substring(0, 1).ToUpper() + prop.Key.Substring(1))
                                              .Replace("#type#", prop.Value).Replace("#valueName#", c.Name.Substring(0, 1).ToLower())
-                                             .Replace("#classContextName#", classContextName.Name).Replace("#contextPropName#", conProps[y].Name);
+                                             .Replace("#classContextName#", c.Name + "Context").Replace("#contextPropName#", c.Name + "s");
                         }
                         y = y + 1;
                     }
@@ -171,7 +170,7 @@ namespace Generator_.net_framework_
                             newLine = newLine.Replace("#className#", c.Name).Replace("#propName#", prop.Key)
                                              .Replace("#PropName#", prop.Key.Substring(0, 1).ToUpper() + prop.Key.Substring(1))
                                              .Replace("#type#", prop.Value).Replace("#valueName#", c.Name.Substring(0, 1).ToLower())
-                                             .Replace("#classContextName#", classContextName.Name).Replace("#contextPropName#", conProps[y].Name);
+                                             .Replace("#classContextName#", c.Name + "Context").Replace("#contextPropName#", c.Name + "s");
                         }
                         y = y + 1;
                     }
@@ -199,7 +198,7 @@ namespace Generator_.net_framework_
                                 newLine = newLine.Replace("#className#", c.Name).Replace("#propName#", prop.Key)
                                                  .Replace("#PropName#", prop.Key.Substring(0, 1).ToUpper() + prop.Key.Substring(1))
                                                  .Replace("#type#", prop.Value).Replace("#valueName#", c.Name.Substring(0, 1).ToLower())
-                                                 .Replace("#classContextName#", classContextName.Name).Replace("#contextPropName#", conProps[y].Name);
+                                             .Replace("#classContextName#", c.Name + "Context").Replace("#contextPropName#", c.Name + "s");
                             }
                         }
                         y = y + 1;
@@ -228,7 +227,7 @@ namespace Generator_.net_framework_
                                 newLine = newLine.Replace("#className#", c.Name).Replace("#propName#", prop.Key)
                                                  .Replace("#PropName#", prop.Key.Substring(0, 1).ToUpper() + prop.Key.Substring(1))
                                                  .Replace("#type#", prop.Value).Replace("#valueName#", c.Name.Substring(0, 1).ToLower())
-                                                 .Replace("#classContextName#", classContextName.Name).Replace("#contextPropName#", conProps[y].Name);
+                                             .Replace("#classContextName#", c.Name + "Context").Replace("#contextPropName#", c.Name + "s");
                             }
                             y = y + 1;
                         }
@@ -248,7 +247,7 @@ namespace Generator_.net_framework_
                             newLine = newLine + text[i + x] + "\n";
                         }
                         newLine = newLine.Replace("#className#", c.Name).Replace("#valueName#", c.Name.Substring(0, 1).ToLower())
-                                            .Replace("#classContextName#", classContextName.Name).Replace("#contextPropName#", conProps[y].Name);
+                                             .Replace("#classContextName#", c.Name + "Context").Replace("#contextPropName#", c.Name + "s");
 
                         y = y + 1;
                     }
@@ -266,7 +265,7 @@ namespace Generator_.net_framework_
 
             replaced = replaced.Replace("#namespaceName#", namespaceName);
 
-            writeOut(replaced, "EntityMethods", languageExtension, outputPath);
+            writeOut(replaced, classes[0].Name + "EntityMethod", languageExtension, outputPath);
         }
 
         public static string[] readIn(string fileName, string languageExtension)

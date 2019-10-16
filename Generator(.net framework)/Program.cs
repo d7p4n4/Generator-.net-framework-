@@ -41,7 +41,7 @@ namespace Generator_.net_framework_
             {
 
             log.Debug("path:"+ GetAppConfigStringParameter(APPSETTINGS_CLASSNAME));
-
+            
             string[] files =
                 Directory.GetFiles(APPSETTINGS_INPATH, "*.cs", SearchOption.TopDirectoryOnly);
 
@@ -60,7 +60,12 @@ namespace Generator_.net_framework_
                 string s = Path.GetFileNameWithoutExtension(f);
                 list.Add(ReadIn.ReadLines(f, APPSETTINGS_NAMESPACE + "." + s));
             }
-            /*list.Add(ReadIn.ReadLines("d:\\Server\\Visual_studio\\GeneratedClasses\\GeneratedClasses\\PersonPreProcessed.cs", "GuidGenerate.PersonPreProcessed"));
+
+            foreach (var f in files2)
+            {
+                string s = Path.GetFileNameWithoutExtension(f);
+                Generator.contextGenerate(list, s, APPSETTINGS_BASENAME, APPSETTINGS_NAMESPACE, "Template", APPSETTINGS_LANGUAGE, APPSETTINGS_OUTPUTPATH);
+            }
 
             Dictionary<string, string> values = new Dictionary<string, string>();
             foreach (var l in list)
@@ -70,14 +75,10 @@ namespace Generator_.net_framework_
 
                 values.Add(name, vName);
             }
-            */
-            foreach (var f in files2)
-            {
-                string s = Path.GetFileNameWithoutExtension(f);
-                Generator.contextGenerate(list, s, APPSETTINGS_BASENAME, APPSETTINGS_NAMESPACE, "Template", APPSETTINGS_LANGUAGE, APPSETTINGS_OUTPUTPATH);
-            }
-            Generator.generateEntityMethods("TemplateEntityMethods", APPSETTINGS_LANGUAGE, APPSETTINGS_NAMESPACE, ReadIn.ReadLines("d:\\Server\\Visual_studio\\GeneratedClasses\\GeneratedClasses\\PersonStartPreProcessedContext.cs", "GuidGenerate.PersonStartPreProcessedContext"), list, APPSETTINGS_OUTPUTPATH);
-       
+
+            Generator.generateEntityMethods("TemplateEntityMethods", APPSETTINGS_LANGUAGE, APPSETTINGS_NAMESPACE, list, APPSETTINGS_OUTPUTPATH);
+            Generator.programGenerator("TemplateSaveProgram", APPSETTINGS_LANGUAGE, APPSETTINGS_NAMESPACE, list, values, APPSETTINGS_OUTPUTPATH);
+            //ReadIn.ReadLines("", "onTheFlyClass.MyClass");
         }
     }
     
