@@ -23,6 +23,8 @@ namespace Generator_.net_framework_
             replaced = replaced.Replace("#parentClassName#", className + "Algebra");
 
             writeOut(replaced, className, languageExtension, outputPath);
+
+            EntityGenerate.entityGenerateMethods();
         }
 
         public static string[] readIn(string fileName, string languageExtension)
