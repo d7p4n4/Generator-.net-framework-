@@ -27,7 +27,7 @@ namespace Generator_.net_framework_
 
             List<Type> list = new List<Type>();
             string[] files2 =
-                Directory.GetFiles(APPSETTINGS_OUTPUTPATH, "*PreProcessed.cs", SearchOption.TopDirectoryOnly);
+                Directory.GetFiles(APPSETTINGS_INPATH, "*.cs", SearchOption.TopDirectoryOnly);
 
             foreach (var f in files2)
             {

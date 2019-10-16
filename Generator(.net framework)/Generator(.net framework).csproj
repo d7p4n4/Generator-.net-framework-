@@ -90,7 +90,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GenerateClassEmpty.cs" />
     <Compile Include="ReadIn.cs" />
-    <Compile Include="SourceClass\PersonStart.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -108,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Generated\" />
+    <Folder Include="SourceClass\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

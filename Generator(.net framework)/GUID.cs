@@ -7,7 +7,7 @@ namespace Generator_.net_framework_
     [AttributeUsage(AttributeTargets.All)]
     class GUID : Attribute
     {
-        private string guid;
+        private string guid { get; set; }
 
         public GUID()
         {

@@ -5,15 +5,20 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using Generator_.net_framework_;
 
 namespace Generator_.net_framework_
 {
     class ReadIn
     {
+        [GUID("")]
+        private string s = "";
         public static Type ReadLines(string inputPath, string namespaceAndClass)
         {
+            
             int counter = 0;
             string line;
 
@@ -21,6 +26,7 @@ namespace Generator_.net_framework_
             var csc = new CSharpCodeProvider();
             var cc = csc.CreateCompiler();
             CompilerParameters cp = new CompilerParameters();
+            
 
             cp.ReferencedAssemblies.Add("mscorlib.dll");
             cp.ReferencedAssemblies.Add("System.dll");
