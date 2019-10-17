@@ -7,7 +7,7 @@ namespace Generator_.net_framework_
 {
     class GenerateClassEmpty
     {
-        public static void generateClass(string templateName, string languageExtension, string package, string className, string outputPath)
+        public static void generateClass(string templateName, string languageExtension, string package, string className, string outputPath, string[] files)
         {
             string[] text = readIn(templateName, languageExtension);
 
@@ -24,7 +24,7 @@ namespace Generator_.net_framework_
 
             writeOut(replaced, className, languageExtension, outputPath);
 
-            EntityGenerate.entityGenerateMethods();
+            EntityGenerate.entityGenerateMethods(files);
         }
 
         public static string[] readIn(string fileName, string languageExtension)

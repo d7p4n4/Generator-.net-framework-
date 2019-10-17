@@ -22,12 +22,11 @@ namespace Generator_.net_framework_
         private static readonly string APPSETTINGS_INPUTNAMESPACE = ConfigurationManager.AppSettings["inputNamespace"];
         #endregion
 
-        public static void entityGenerateMethods()
+        public static void entityGenerateMethods(string[] files)
         {
 
             List<Type> list = new List<Type>();
-            string[] files2 =
-                Directory.GetFiles(APPSETTINGS_INPATH, "*.cs", SearchOption.TopDirectoryOnly);
+            string[] files2 = files;
 
             foreach (var f in files2)
             {

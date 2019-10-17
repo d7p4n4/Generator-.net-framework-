@@ -7,7 +7,7 @@ namespace Generator_.net_framework_
 {
     class GenerateClass
     {
-        public static void generateClass(string languageExtension, string package, string className, Type anyType, string outputPath)
+        public static void generateClass(string languageExtension, string package, string className, Type anyType, string outputPath, string[] files)
         {
 
             //get the properties and its type
@@ -168,7 +168,7 @@ namespace Generator_.net_framework_
                 writeOut(replaced, className, languageExtension, outputPath);
             }
 
-            GenerateClassAlgebra.generateClass("Template", languageExtension, package, className, map, outputPath);
+            GenerateClassAlgebra.generateClass("Template", languageExtension, package, className, map, outputPath, files);
         }
 
         public static string[] readIn(string fileName, string languageExtension)

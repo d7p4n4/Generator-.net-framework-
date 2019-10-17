@@ -49,7 +49,7 @@ namespace Generator_.net_framework_
             {
                 string s = Path.GetFileNameWithoutExtension(f);
                 Console.WriteLine(s);
-                GenerateClass.generateClass(APPSETTINGS_LANGUAGE, APPSETTINGS_NAMESPACE, s, ReadIn.ReadLines(f, APPSETTINGS_INPUTNAMESPACE + "." + s), APPSETTINGS_OUTPUTPATH);
+                GenerateClass.generateClass(APPSETTINGS_LANGUAGE, APPSETTINGS_NAMESPACE, s, ReadIn.ReadLines(f, APPSETTINGS_INPUTNAMESPACE + "." + s), APPSETTINGS_OUTPUTPATH, files);
             }
         }
     }
