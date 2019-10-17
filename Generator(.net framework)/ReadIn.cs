@@ -14,7 +14,6 @@ namespace Generator_.net_framework_
 {
     class ReadIn
     {
-        [GUID("")]
         private string s = "";
         public static Type ReadLines(string inputPath, string namespaceAndClass)
         {
@@ -32,6 +31,7 @@ namespace Generator_.net_framework_
             cp.ReferencedAssemblies.Add("System.dll");
             cp.ReferencedAssemblies.Add("System.ComponentModel.DataAnnotations.dll");
             cp.ReferencedAssemblies.Add("System.ComponentModel.dll");
+            cp.ReferencedAssemblies.Add("System.Runtime.InteropServices.dll");
             cp.ReferencedAssemblies.Add(typeof(GUID).Assembly.Location);
 
             StringBuilder sb = new StringBuilder();
