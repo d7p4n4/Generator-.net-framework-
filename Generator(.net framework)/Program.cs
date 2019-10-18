@@ -55,7 +55,7 @@ namespace Generator_.net_framework_
                 }
             } catch (Exception _exception)
             {
-                log.Debug(_exception.StackTrace);
+                log.Error(_exception.Message);
             }
         }
     }
