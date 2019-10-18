@@ -34,10 +34,10 @@ namespace Generator_.net_framework_
                 list.Add(ReadIn.ReadLines(f, APPSETTINGS_NAMESPACE + "." + s));
             }
 
-            foreach (var f in files2)
+            for (var x = 0; x < files2.Length; x++)
             {
-                string s = Path.GetFileNameWithoutExtension(f);
-                Generator.contextGenerate(list, s, APPSETTINGS_BASENAME, APPSETTINGS_NAMESPACE, "Template", APPSETTINGS_LANGUAGE, APPSETTINGS_OUTPUTPATH);
+                string s = Path.GetFileNameWithoutExtension(files2[x]);
+                Generator.contextGenerate(list[x], s, APPSETTINGS_BASENAME, APPSETTINGS_NAMESPACE, "Template", APPSETTINGS_LANGUAGE, APPSETTINGS_OUTPUTPATH);
             }
 
             Dictionary<string, string> values = new Dictionary<string, string>();
@@ -49,9 +49,12 @@ namespace Generator_.net_framework_
                 values.Add(name, vName);
             }
 
-            Generator.generateEntityMethods("TemplateEntityMethods", APPSETTINGS_LANGUAGE, APPSETTINGS_NAMESPACE, list, APPSETTINGS_OUTPUTPATH);
-            Generator.programGenerator("TemplateSaveProgram", APPSETTINGS_LANGUAGE, APPSETTINGS_NAMESPACE, list, values, APPSETTINGS_OUTPUTPATH);
+            foreach (var l in list)
+            {
+                Generator.generateEntityMethods("TemplateEntityMethods", APPSETTINGS_LANGUAGE, APPSETTINGS_NAMESPACE, l, APPSETTINGS_OUTPUTPATH);
 
+                Generator.programGenerator("TemplateSaveProgram", APPSETTINGS_LANGUAGE, APPSETTINGS_NAMESPACE, l, values, APPSETTINGS_OUTPUTPATH);
+            }
         }
     }
 }

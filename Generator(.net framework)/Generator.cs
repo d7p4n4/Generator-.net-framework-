@@ -8,7 +8,7 @@ namespace Generator_.net_framework_
 {
     class Generator
     {
-        public static void contextGenerate(List<Type> classes, string className, string baseName, string namespaceName, string fileName, string languageExtension, string outputPath)
+        public static void contextGenerate(Type c, string className, string baseName, string namespaceName, string fileName, string languageExtension, string outputPath)
         {
             string[] text = readIn(fileName + "Context", languageExtension);
             string replaced = "";
@@ -18,11 +18,9 @@ namespace Generator_.net_framework_
             {
                 if (text[i].Equals("#classes#"))
                 {
-                    foreach (var c in classes)
-                    {
                         newLine = newLine + text[i + 1].Replace("#classesName#", c.Name).Replace("#tableName#", c.Name + "s") + "\n";
                         newLine = newLine + text[i + 2] + "\n";
-                    }
+                    
                     replaced = replaced + newLine + "\n";
 
 
@@ -80,7 +78,7 @@ namespace Generator_.net_framework_
             writeOut(replaced, namespaceName, languageExtension + "proj");
         }
         */
-        public static void programGenerator(string fileName, string languageExtension, string namespaceName, List<Type> classes, Dictionary<string, string> values, string outputPath)
+        public static void programGenerator(string fileName, string languageExtension, string namespaceName, Type c, Dictionary<string, string> values, string outputPath)
         {
             string[] text = readIn(fileName, languageExtension);
             string replaced = "";
@@ -112,12 +110,12 @@ namespace Generator_.net_framework_
                 }
                 replaced = replaced + text[i] + "\n";
             }
-            replaced = replaced.Replace("#namespaceName#", namespaceName).Replace("#classContextName#", classes[0].Name + "Context");
+            replaced = replaced.Replace("#namespaceName#", namespaceName).Replace("#classContextName#", c.Name + "Context");
 
-            writeOut(replaced, "SaveTest", languageExtension, outputPath);
+            writeOut(replaced, c.Name + "SaveTest", languageExtension, outputPath);
         }
         
-        public static void generateEntityMethods(string fileName, string languageExtension, string namespaceName, List<Type> classes, string outputPath)
+        public static void generateEntityMethods(string fileName, string languageExtension, string namespaceName, Type c, string outputPath)
         {
 
             string[] text = readIn(fileName, languageExtension);
@@ -130,8 +128,6 @@ namespace Generator_.net_framework_
             {
                 if (text[i].Equals("#findFirstBy#"))
                 {
-                    foreach (Type c in classes)
-                    {
                         //get the properties and its type
                         Dictionary<string, string> props = GenerateHelperMethods.getProps(c);
 
@@ -147,7 +143,7 @@ namespace Generator_.net_framework_
                                              .Replace("#classContextName#", c.Name + "Context").Replace("#contextPropName#", c.Name + "s");
                         }
                         y = y + 1;
-                    }
+                    
                     replaced = replaced + newLine;
                     newLine = "";
 
@@ -156,8 +152,6 @@ namespace Generator_.net_framework_
                 }
                 else if (text[i].Equals("#exists#"))
                 {
-                    foreach (Type c in classes)
-                    {
                         //get the properties and its type
                         Dictionary<string, string> props = GenerateHelperMethods.getProps(c);
 
@@ -173,7 +167,7 @@ namespace Generator_.net_framework_
                                              .Replace("#classContextName#", c.Name + "Context").Replace("#contextPropName#", c.Name + "s");
                         }
                         y = y + 1;
-                    }
+                    
                     replaced = replaced + newLine;
                     newLine = "";
 
@@ -182,8 +176,6 @@ namespace Generator_.net_framework_
                 }
                 else if (text[i].Equals("#findListBy#"))
                 {
-                    foreach (Type c in classes)
-                    {
                         //get the properties and its type
                         Dictionary<string, string> props = GenerateHelperMethods.getProps(c);
 
@@ -202,7 +194,7 @@ namespace Generator_.net_framework_
                             }
                         }
                         y = y + 1;
-                    }
+                    
                     replaced = replaced + newLine;
                     newLine = "";
 
@@ -211,8 +203,6 @@ namespace Generator_.net_framework_
                 }
                 else if (text[i].Equals("#deleteById#"))
                 {
-                    foreach (Type c in classes)
-                    {
                         //get the properties and its type
                         Dictionary<string, string> props = GenerateHelperMethods.getProps(c);
 
@@ -230,7 +220,7 @@ namespace Generator_.net_framework_
                                              .Replace("#classContextName#", c.Name + "Context").Replace("#contextPropName#", c.Name + "s");
                             }
                             y = y + 1;
-                        }
+                        
                     }
                     replaced = replaced + newLine;
                     newLine = "";
@@ -240,8 +230,6 @@ namespace Generator_.net_framework_
                 }
                 else if (text[i].Equals("#adds#"))
                 {
-                    foreach (Type c in classes)
-                    {
                         for (int x = 1; x < 11; x++)
                         {
                             newLine = newLine + text[i + x] + "\n";
@@ -250,7 +238,7 @@ namespace Generator_.net_framework_
                                              .Replace("#classContextName#", c.Name + "Context").Replace("#contextPropName#", c.Name + "s");
 
                         y = y + 1;
-                    }
+                    
                     replaced = replaced + newLine;
                     newLine = "";
 
@@ -265,7 +253,7 @@ namespace Generator_.net_framework_
 
             replaced = replaced.Replace("#namespaceName#", namespaceName);
 
-            writeOut(replaced, classes[0].Name + "EntityMethod", languageExtension, outputPath);
+            writeOut(replaced, c.Name + "EntityMethod", languageExtension, outputPath);
         }
 
         public static string[] readIn(string fileName, string languageExtension)
