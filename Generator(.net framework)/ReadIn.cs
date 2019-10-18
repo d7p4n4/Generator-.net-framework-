@@ -42,6 +42,7 @@ namespace Generator_.net_framework_
             {
                 if (line.Contains("GUID") || line.Contains("Persistent"))
                 {
+                    sb.Append(line + "\n");
                     counter++;
                 }
                 else
@@ -54,7 +55,7 @@ namespace Generator_.net_framework_
             CompilerResults results = csc.CompileAssemblyFromSource(cp, sb.ToString());
             System.Reflection.Assembly _assembly = results.CompiledAssembly;
             Type[] _types = _assembly.GetTypes();
-            Type eType = _assembly.GetType(namespaceAndClass);
+            Type eType = _types[0];
 
 
             return eType;
