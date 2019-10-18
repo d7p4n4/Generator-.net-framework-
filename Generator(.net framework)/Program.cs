@@ -41,15 +41,21 @@ namespace Generator_.net_framework_
             {
 
             log.Debug("path:"+ GetAppConfigStringParameter(APPSETTINGS_CLASSNAME));
-            
-            string[] files =
-                Directory.GetFiles(APPSETTINGS_INPATH, "*.cs", SearchOption.TopDirectoryOnly);
 
-            foreach (var f in files)
+            try
             {
-                string s = Path.GetFileNameWithoutExtension(f);
-                Console.WriteLine(s);
-                GenerateClass.generateClass(APPSETTINGS_LANGUAGE, APPSETTINGS_NAMESPACE, s, ReadIn.ReadLines(f, APPSETTINGS_INPUTNAMESPACE + "." + s), APPSETTINGS_OUTPUTPATH, files);
+                string[] files =
+                    Directory.GetFiles(APPSETTINGS_INPATH, "*.cs", SearchOption.TopDirectoryOnly);
+
+                foreach (var f in files)
+                {
+                    string s = Path.GetFileNameWithoutExtension(f);
+                    Console.WriteLine(s);
+                    GenerateClass.generateClass(APPSETTINGS_LANGUAGE, APPSETTINGS_NAMESPACE, s, ReadIn.ReadLines(f, APPSETTINGS_INPUTNAMESPACE + "." + s), APPSETTINGS_OUTPUTPATH, files);
+                }
+            } catch (Exception _exception)
+            {
+                log.Debug(_exception.Message);
             }
         }
     }
