@@ -18,12 +18,12 @@ namespace Generator_.net_framework_
             {
                 if (text[i].Contains("#has#"))
                 {
-                    foreach (var p in map)
+                    foreach (var pair in map)
                     {
-                        if (!p.Value.StartsWith("List") && !p.Value.StartsWith("Boolean") && !p.Value.StartsWith("Dictionary"))
+                        if (!pair.Value.StartsWith("List") && !pair.Value.StartsWith("Boolean") && !pair.Value.StartsWith("Dictionary"))
                         {
-                            newLine = text[i + 1].Replace("#propName#", p.Key.Substring(0, 1).ToUpper() + p.Key.Substring(1)) + "\n";
-                            newLine = newLine + text[i + 2].Replace("#propName#", p.Key.Substring(0, 1).ToUpper() + p.Key.Substring(1)) + "\n";
+                            newLine = text[i + 1].Replace("#propName#", pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1)) + "\n";
+                            newLine = newLine + text[i + 2].Replace("#propName#", pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1)) + "\n";
                             newLine = newLine + "\n" + text[i + 3] + "\n" + text[i + 4] + "\n" + text[i + 5] + "\n" +
                                 text[i + 6] + "\n" + text[i + 7] + "\n" + text[i + 8] + "\n" + text[i + 9];
                             replaced = replaced + newLine + "\n\n";
@@ -34,12 +34,12 @@ namespace Generator_.net_framework_
                 }
                 else if (text[i].Contains("#is#"))
                 {
-                    foreach (var p in map)
+                    foreach (var pair in map)
                     {
-                        if (p.Value.StartsWith("Boolean"))
+                        if (pair.Value.StartsWith("Boolean"))
                         {
-                            newLine = text[i + 1].Replace("#propName#", p.Key.Substring(0, 1).ToUpper() + p.Key.Substring(1)) + "\n";
-                            newLine = newLine + text[i + 2].Replace("#propName#", p.Key.Substring(0, 1).ToUpper() + p.Key.Substring(1)) + "\n";
+                            newLine = text[i + 1].Replace("#propName#", pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1)) + "\n";
+                            newLine = newLine + text[i + 2].Replace("#propName#", pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1)) + "\n";
                             newLine = newLine + "\n" + text[i + 3] + "\n";
                             replaced = replaced + newLine + "\n\n";
                         }
@@ -49,13 +49,13 @@ namespace Generator_.net_framework_
                 }
                 else if (text[i].Contains("#count#"))
                 {
-                    foreach (var p in map)
+                    foreach (var pair in map)
                     {
-                        if (p.Value.StartsWith("List") || p.Value.StartsWith("Dictionary"))
+                        if (pair.Value.StartsWith("List") || pair.Value.StartsWith("Dictionary"))
                         {
-                            newLine = text[i + 1].Replace("#propName#", p.Key.Substring(0, 1).ToUpper() + p.Key.Substring(1));
+                            newLine = text[i + 1].Replace("#propName#", pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1));
                             newLine = newLine + "\n" + text[i + 2] + "\n";
-                            newLine = newLine + text[i + 3].Replace("#propName#", p.Key.Substring(0, 1).ToUpper() + p.Key.Substring(1));
+                            newLine = newLine + text[i + 3].Replace("#propName#", pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1));
                             newLine = newLine + "\n" + text[i + 4] + "\n" + text[i + 5] + "\n" + text[i + 6] + "\n";
                             replaced = replaced + newLine + "\n\n";
                         }
@@ -65,13 +65,13 @@ namespace Generator_.net_framework_
                 }
                 else if (text[i].Contains("#countMember#"))
                 {
-                    foreach (var p in map)
+                    foreach (var pair in map)
                     {
-                        if (p.Value.StartsWith("List") || p.Value.StartsWith("Dictionary"))
+                        if (pair.Value.StartsWith("List") || pair.Value.StartsWith("Dictionary"))
                         {
-                            newLine = text[i + 1].Replace("#propName#", p.Key.Substring(0, 1).ToUpper() + p.Key.Substring(1));
+                            newLine = text[i + 1].Replace("#propName#", pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1));
                             newLine = newLine + "\n" + text[i + 2] + "\n";
-                            newLine = newLine + text[i + 3].Replace("#propName#", p.Key.Substring(0, 1).ToUpper() + p.Key.Substring(1));
+                            newLine = newLine + text[i + 3].Replace("#propName#", pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1));
                             newLine = newLine + "\n" + text[i + 4] + "\n" + text[i + 5] + "\n" + text[i + 6] + "\n" +
                                 text[i + 7] + "\n" + text[i + 8] + "\n" + text[i + 9] + "\n" + text[i + 10] + "\n" +
                                 text[i + 11] + "\n" + text[i + 12] + "\n" + text[i + 13];

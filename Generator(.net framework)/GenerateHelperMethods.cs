@@ -11,24 +11,24 @@ namespace Generator_.net_framework_
         {
             Dictionary<string, string> props = new Dictionary<string, string>();
 
-            PropertyInfo[] prop = anyType.GetProperties();
+            PropertyInfo[] propInfo = anyType.GetProperties();
 
-            foreach (var p in prop)
+            foreach (var prop in propInfo)
             {
-                if (p.PropertyType.ToString().StartsWith("System.Collections.Generic."))
+                if (prop.PropertyType.ToString().StartsWith("System.Collections.Generic."))
                 {
-                    string type = p.PropertyType.ToString();
+                    string type = prop.PropertyType.ToString();
                     string outType = type.Substring(0, type.IndexOf("`")).Replace("System.Collections.Generic.", "");
                     string innerType = type.Substring(type.IndexOf("`"));
                     string finalInnerType = innerType.Substring(innerType.IndexOf(".") + 1).Replace("]", "");
                     Console.WriteLine(finalInnerType);
 
-                    props.Add(p.Name, outType + "<" + finalInnerType + ">");
+                    props.Add(prop.Name, outType + "<" + finalInnerType + ">");
 
                 }
                 else
                 {
-                    props.Add(p.Name, p.PropertyType.ToString().Substring(p.PropertyType.ToString().IndexOf(".") + 1));
+                    props.Add(prop.Name, prop.PropertyType.ToString().Substring(prop.PropertyType.ToString().IndexOf(".") + 1));
                 }
             }
 

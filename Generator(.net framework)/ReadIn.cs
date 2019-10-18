@@ -15,44 +15,36 @@ namespace Generator_.net_framework_
     class ReadIn
     {
         private string s = "";
-        public static Type ReadLines(string inputPath, string namespaceAndClass)
+        public static Type ReadLines(string inputPath)
         {
             
             int counter = 0;
             string line;
 
             // Read the file and display it line by line.  
-            var csc = new CSharpCodeProvider();
-            var cc = csc.CreateCompiler();
-            CompilerParameters cp = new CompilerParameters();
-            
+            var CSCProvider = new CSharpCodeProvider();
+            var _compiler = CSCProvider.CreateCompiler();
+            CompilerParameters _cParameters = new CompilerParameters();
 
-            cp.ReferencedAssemblies.Add("mscorlib.dll");
-            cp.ReferencedAssemblies.Add("System.dll");
-            cp.ReferencedAssemblies.Add("System.ComponentModel.DataAnnotations.dll");
-            cp.ReferencedAssemblies.Add("System.ComponentModel.dll");
-            cp.ReferencedAssemblies.Add("System.Runtime.InteropServices.dll");
-            cp.ReferencedAssemblies.Add(typeof(GUID).Assembly.Location);
 
-            StringBuilder sb = new StringBuilder();
+            _cParameters.ReferencedAssemblies.Add("mscorlib.dll");
+            _cParameters.ReferencedAssemblies.Add("System.dll");
+            _cParameters.ReferencedAssemblies.Add("System.ComponentModel.DataAnnotations.dll");
+            _cParameters.ReferencedAssemblies.Add("System.ComponentModel.dll");
+            _cParameters.ReferencedAssemblies.Add("System.Runtime.InteropServices.dll");
+            _cParameters.ReferencedAssemblies.Add(typeof(GUID).Assembly.Location);
+
+            StringBuilder _stringBuilder = new StringBuilder();
 
             System.IO.StreamReader file =
                  new System.IO.StreamReader(inputPath);
             while ((line = file.ReadLine()) != null)
             {
-                if (line.Contains("GUID") || line.Contains("Persistent"))
-                {
-                    sb.Append(line + "\n");
-                    counter++;
-                }
-                else
-                {
-                    sb.Append(line + "\n");
-                    counter++;
-                }
+                _stringBuilder.Append(line + '\n');
+                counter++;
             }
 
-            CompilerResults results = csc.CompileAssemblyFromSource(cp, sb.ToString());
+            CompilerResults results = CSCProvider.CompileAssemblyFromSource(_cParameters, _stringBuilder.ToString());
             System.Reflection.Assembly _assembly = results.CompiledAssembly;
             Type[] _types = _assembly.GetTypes();
             Type eType = _types[0];

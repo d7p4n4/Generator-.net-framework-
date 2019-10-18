@@ -58,9 +58,9 @@ namespace Generator_.net_framework_
                 {
                     foreach (var pair in map)
                     {
-                        foreach (var g in guid)
+                        foreach (var _guid in guid)
                         {
-                            if (g.Key.Equals(pair.Key) && g.Value.Equals(""))
+                            if (_guid.Key.Equals(pair.Key) && _guid.Value.Equals(""))
                             {
                                 
                                 Guid id = Guid.NewGuid();
@@ -68,11 +68,11 @@ namespace Generator_.net_framework_
 
                                 if (languageExtension.Equals("cs"))
                                 {
-                                    newLine = "            [GUID(\"" + id + "\")]\n";
+                                    //newLine = "            [GUID(\"" + id + "\")]\n";
                                 }
                                 else if (languageExtension.Equals("java"))
                                 {
-                                    newLine = "            @GUID(\"" + id + "\")\n";
+                                    //newLine = "            @GUID(\"" + id + "\")\n";
                                 }
                                 newLine = newLine + text[i + 1].Replace("#type#", pair.Value);
                                 newLine = newLine.Replace("#prop#", pair.Key);
@@ -80,17 +80,17 @@ namespace Generator_.net_framework_
                                 replaced = replaced + "\n" + newLine;
                                 break;
                             }
-                            else if (g.Key.Equals(pair.Key))
+                            else if (_guid.Key.Equals(pair.Key))
                             {
                                 string newLine = "";
 
                                 if (languageExtension.Equals("cs"))
                                 {
-                                    newLine = "            [GUID(\"" + g.Value + "\")]\n";
+                                    //newLine = "            [GUID(\"" + _guid.Value + "\")]\n";
                                 }
                                 else if (languageExtension.Equals("java"))
                                 {
-                                    newLine = "            @GUID(\"" + g.Value + "\")\n";
+                                    //newLine = "            @GUID(\"" + _guid.Value + "\")\n";
                                 }
                                 newLine = newLine + text[i + 1].Replace("#type#", pair.Value);
                                 newLine = newLine.Replace("#prop#", pair.Key);
@@ -141,11 +141,11 @@ namespace Generator_.net_framework_
 
                         if (languageExtension.Equals("cs"))
                         {
-                            newLine = "            [GUID(\"" + id + "\")]\n";
+                            //newLine = "            [GUID(\"" + id + "\")]\n";
                         }
                         else if (languageExtension.Equals("java"))
                         {
-                            newLine = "            @GUID(\"" + id + "\")\n";
+                            //newLine = "            @GUID(\"" + id + "\")\n";
                         }
                         replaced = replaced + newLine + text[i];
                     }
