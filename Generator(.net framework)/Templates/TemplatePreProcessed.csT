@@ -18,7 +18,7 @@ namespace #namespaceName#
 		
 		public #className#()
 		{
-			GUID guid = new GUID("#guid#");
+			GUID = "#guid#";
 		}
 	}
 }
