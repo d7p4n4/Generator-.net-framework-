@@ -32,6 +32,34 @@ namespace Generator_.net_framework_
 
                     i = i + 9;
                 }
+                else if (text[i].Equals("#getter#"))
+                {
+                    foreach (var pair in map)
+                    {
+                        newLine = text[i + 1].Replace("#type#", pair.Value);
+                        newLine = newLine.Replace("#prop#", pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1));
+
+                        replaced = replaced + "\n" + newLine;
+
+                        newLine = text[i + 2].Replace("#prop#", pair.Key);
+                        replaced = replaced + "\n" + newLine + "\n        }\n";
+                    }
+                    i = i + 3;
+                }
+                else if (text[i].Equals("#setter#"))
+                {
+                    foreach (var pair in map)
+                    {
+                        newLine = text[i + 1].Replace("#prop#", pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1));
+                        newLine = newLine.Replace("#type#", pair.Value);
+
+                        replaced = replaced + "\n" + newLine;
+
+                        newLine = text[i + 2].Replace("#prop#", pair.Key);
+                        replaced = replaced + "\n" + newLine + "\n        }\n";
+                    }
+                    i = i + 3;
+                }
                 else if (text[i].Contains("#is#"))
                 {
                     foreach (var pair in map)
@@ -90,7 +118,7 @@ namespace Generator_.net_framework_
             }
             replaced = replaced.Replace("#namespaceName#", package);
             replaced = replaced.Replace("#className#", className + "Algebra");
-            replaced = replaced.Replace("#parentClassName#", className + "Base");
+            replaced = replaced.Replace("#parentClassName#", className + "PreProcessed");
 
             writeOut(replaced, className, languageExtension, outputPath);
 

@@ -78,7 +78,7 @@ namespace Generator_.net_framework_
             writeOut(replaced, namespaceName, languageExtension + "proj");
         }
         */
-        public static void programGenerator(string fileName, string languageExtension, string namespaceName, Type c, Dictionary<string, string> values, string outputPath)
+        public static void programGenerator(string fileName, string languageExtension, string namespaceName, Type _class, Dictionary<string, string> values, string outputPath)
         {
             string[] text = readIn(fileName, languageExtension);
             string replaced = "";
@@ -88,10 +88,8 @@ namespace Generator_.net_framework_
             {
                 if (text[i].Equals("#values#"))
                 {
-                    foreach (var v in values)
-                    {
-                        newLine = newLine + text[i + 1].Replace("#valueName#", v.Value).Replace("#className#", v.Key) + "\n";
-                    }
+                    newLine = newLine + text[i + 1].Replace("#valueName#", _class.Name.Substring(0,1).ToLower()).Replace("#className#", _class.Name) + "\n";
+                    
                     replaced = replaced + newLine;
                     newLine = "";
 
@@ -99,10 +97,8 @@ namespace Generator_.net_framework_
                 }
                 else if (text[i].Equals("#adds#"))
                 {
-                    foreach (var v in values)
-                    {
-                        newLine = newLine + text[i + 1].Replace("#valueName#", v.Value).Replace("#className#", v.Key) + "\n";
-                    }
+                    newLine = newLine + text[i + 1].Replace("#valueName#", _class.Name.Substring(0,1).ToLower()).Replace("#className#", _class.Name) + "\n";
+                    
                     replaced = replaced + newLine;
                     newLine = "";
 
@@ -110,12 +106,12 @@ namespace Generator_.net_framework_
                 }
                 replaced = replaced + text[i] + "\n";
             }
-            replaced = replaced.Replace("#namespaceName#", namespaceName).Replace("#classContextName#", c.Name + "Context");
+            replaced = replaced.Replace("#namespaceName#", namespaceName).Replace("#classContextName#", _class.Name + "Context");
 
-            writeOut(replaced, c.Name + "SaveTest", languageExtension, outputPath);
+            writeOut(replaced, _class.Name + "SaveTest", languageExtension, outputPath);
         }
         
-        public static void generateEntityMethods(string fileName, string languageExtension, string namespaceName, Type c, string outputPath)
+        public static void generateEntityMethods(string fileName, string languageExtension, string namespaceName, Type _class, string outputPath)
         {
 
             string[] text = readIn(fileName, languageExtension);
@@ -129,7 +125,7 @@ namespace Generator_.net_framework_
                 if (text[i].Equals("#findFirstBy#"))
                 {
                         //get the properties and its type
-                        Dictionary<string, string> props = GenerateHelperMethods.getProps(c);
+                        Dictionary<string, string> props = GenerateHelperMethods.getProps(_class);
 
                         foreach (var prop in props)
                         {
@@ -137,10 +133,10 @@ namespace Generator_.net_framework_
                             {
                                 newLine = newLine + text[i + x] + "\n";
                             }
-                            newLine = newLine.Replace("#className#", c.Name).Replace("#propName#", prop.Key)
+                            newLine = newLine.Replace("#className#", _class.Name).Replace("#propName#", prop.Key)
                                              .Replace("#PropName#", prop.Key.Substring(0, 1).ToUpper() + prop.Key.Substring(1))
-                                             .Replace("#type#", prop.Value).Replace("#valueName#", c.Name.Substring(0, 1).ToLower())
-                                             .Replace("#classContextName#", c.Name + "Context").Replace("#contextPropName#", c.Name + "s");
+                                             .Replace("#type#", prop.Value).Replace("#valueName#", _class.Name.Substring(0, 1).ToLower())
+                                             .Replace("#classContextName#", _class.Name + "Context").Replace("#contextPropName#", _class.Name + "s");
                         }
                         y = y + 1;
                     
@@ -153,7 +149,7 @@ namespace Generator_.net_framework_
                 else if (text[i].Equals("#exists#"))
                 {
                         //get the properties and its type
-                        Dictionary<string, string> props = GenerateHelperMethods.getProps(c);
+                        Dictionary<string, string> props = GenerateHelperMethods.getProps(_class);
 
                         foreach (var prop in props)
                         {
@@ -161,10 +157,10 @@ namespace Generator_.net_framework_
                             {
                                 newLine = newLine + text[i + x] + "\n";
                             }
-                            newLine = newLine.Replace("#className#", c.Name).Replace("#propName#", prop.Key)
+                            newLine = newLine.Replace("#className#", _class.Name).Replace("#propName#", prop.Key)
                                              .Replace("#PropName#", prop.Key.Substring(0, 1).ToUpper() + prop.Key.Substring(1))
-                                             .Replace("#type#", prop.Value).Replace("#valueName#", c.Name.Substring(0, 1).ToLower())
-                                             .Replace("#classContextName#", c.Name + "Context").Replace("#contextPropName#", c.Name + "s");
+                                             .Replace("#type#", prop.Value).Replace("#valueName#", _class.Name.Substring(0, 1).ToLower())
+                                             .Replace("#classContextName#", _class.Name + "Context").Replace("#contextPropName#", _class.Name + "s");
                         }
                         y = y + 1;
                     
@@ -177,7 +173,7 @@ namespace Generator_.net_framework_
                 else if (text[i].Equals("#findListBy#"))
                 {
                         //get the properties and its type
-                        Dictionary<string, string> props = GenerateHelperMethods.getProps(c);
+                        Dictionary<string, string> props = GenerateHelperMethods.getProps(_class);
 
                         foreach (var prop in props)
                         {
@@ -187,10 +183,10 @@ namespace Generator_.net_framework_
                                 {
                                     newLine = newLine + text[i + x] + "\n";
                                 }
-                                newLine = newLine.Replace("#className#", c.Name).Replace("#propName#", prop.Key)
+                                newLine = newLine.Replace("#className#", _class.Name).Replace("#propName#", prop.Key)
                                                  .Replace("#PropName#", prop.Key.Substring(0, 1).ToUpper() + prop.Key.Substring(1))
-                                                 .Replace("#type#", prop.Value).Replace("#valueName#", c.Name.Substring(0, 1).ToLower())
-                                             .Replace("#classContextName#", c.Name + "Context").Replace("#contextPropName#", c.Name + "s");
+                                                 .Replace("#type#", prop.Value).Replace("#valueName#", _class.Name.Substring(0, 1).ToLower())
+                                             .Replace("#classContextName#", _class.Name + "Context").Replace("#contextPropName#", _class.Name + "s");
                             }
                         }
                         y = y + 1;
@@ -204,7 +200,7 @@ namespace Generator_.net_framework_
                 else if (text[i].Equals("#deleteById#"))
                 {
                         //get the properties and its type
-                        Dictionary<string, string> props = GenerateHelperMethods.getProps(c);
+                        Dictionary<string, string> props = GenerateHelperMethods.getProps(_class);
 
                         foreach (var prop in props)
                         {
@@ -214,10 +210,10 @@ namespace Generator_.net_framework_
                                 {
                                     newLine = newLine + text[i + x] + "\n";
                                 }
-                                newLine = newLine.Replace("#className#", c.Name).Replace("#propName#", prop.Key)
+                                newLine = newLine.Replace("#className#", _class.Name).Replace("#propName#", prop.Key)
                                                  .Replace("#PropName#", prop.Key.Substring(0, 1).ToUpper() + prop.Key.Substring(1))
-                                                 .Replace("#type#", prop.Value).Replace("#valueName#", c.Name.Substring(0, 1).ToLower())
-                                             .Replace("#classContextName#", c.Name + "Context").Replace("#contextPropName#", c.Name + "s");
+                                                 .Replace("#type#", prop.Value).Replace("#valueName#", _class.Name.Substring(0, 1).ToLower())
+                                             .Replace("#classContextName#", _class.Name + "Context").Replace("#contextPropName#", _class.Name + "s");
                             }
                             y = y + 1;
                         
@@ -234,8 +230,8 @@ namespace Generator_.net_framework_
                         {
                             newLine = newLine + text[i + x] + "\n";
                         }
-                        newLine = newLine.Replace("#className#", c.Name).Replace("#valueName#", c.Name.Substring(0, 1).ToLower())
-                                             .Replace("#classContextName#", c.Name + "Context").Replace("#contextPropName#", c.Name + "s");
+                        newLine = newLine.Replace("#className#", _class.Name).Replace("#valueName#", _class.Name.Substring(0, 1).ToLower())
+                                             .Replace("#classContextName#", _class.Name + "Context").Replace("#contextPropName#", _class.Name + "s");
 
                         y = y + 1;
                     
@@ -252,8 +248,9 @@ namespace Generator_.net_framework_
             }
 
             replaced = replaced.Replace("#namespaceName#", namespaceName);
+            replaced = replaced.Replace("#mainClassName#", _class.Name);
 
-            writeOut(replaced, c.Name + "EntityMethod", languageExtension, outputPath);
+            writeOut(replaced, _class.Name + "EntityMethods", languageExtension, outputPath);
         }
 
         public static string[] readIn(string fileName, string languageExtension)

@@ -6,6 +6,16 @@ namespace #namespaceName#
 {
 	public class #className# : #parentClassName#
 	{
+#getter#
+		public #type# get#prop#() {
+        		return #prop#;
+					}
+
+#setter#
+    		public void set#prop#(#type# newValue) {
+        		#prop# = newValue;
+    		}
+	
 #has#
 		public Boolean has#propName#(){
 			if(this.get#propName#() != null){

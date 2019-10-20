@@ -11,6 +11,7 @@ namespace Generator_.net_framework_
     {
         public static void generateClass(string languageExtension, string package, string className, Type anyType, string outputPath, string[] files)
         {
+            package = anyType.Namespace;
             string _classGuid = "";
             XmlRootAttribute _attribute = null;
             _attribute = (XmlRootAttribute) Attribute.GetCustomAttribute(anyType, typeof(XmlRootAttribute));
