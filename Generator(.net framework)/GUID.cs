@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Generator_.net_framework_
 {
-    [AttributeUsage(AttributeTargets.All)]
+    [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
     class GUID : Attribute
     {
         private string guid { get; set; }

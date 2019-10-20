@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace Generator_.net_framework_
 {
@@ -9,6 +11,22 @@ namespace Generator_.net_framework_
     {
         public static void generateClass(string languageExtension, string package, string className, Type anyType, string outputPath, string[] files)
         {
+            string _classGuid = "";
+            XmlRootAttribute _attribute = null;
+            _attribute = (XmlRootAttribute) Attribute.GetCustomAttribute(anyType, typeof(XmlRootAttribute));
+            Console.WriteLine(_attribute);
+            try
+            {
+                if (_attribute.ToString().Equals("System.Xml.Serialization.XmlRootAttribute"))
+                {
+                    Console.WriteLine(_attribute.Namespace);
+                    _classGuid = _attribute.Namespace;
+                }
+            }
+            catch (Exception _exception)
+            {
+                
+            }
 
             //get the properties and its type
             Dictionary<string, string> map = InsertGuid.getProps(anyType);
@@ -132,16 +150,16 @@ namespace Generator_.net_framework_
                     i = i + 3;
                 }
                 
-                else if (!classAttr && text[i].Contains("public class #className#"))
+                /*else if (!classAttr && text[i].Contains("public class #className#"))
                 {
-                    if (text[i].Contains("#className#"))
+                    if (text[i].Contains("#guid#"))
                     {
                         Guid id = Guid.NewGuid();
                         string newLine = "";
 
-                        if (languageExtension.Equals("cs"))
+                        if (languageExtension.Equals("cs") && _attribute == null)
                         {
-                            //newLine = "            [GUID(\"" + id + "\")]\n";
+                            newLine = text[i].Replace("#guid#", id + "");
                         }
                         else if (languageExtension.Equals("java"))
                         {
@@ -149,6 +167,23 @@ namespace Generator_.net_framework_
                         }
                         replaced = replaced + newLine + text[i];
                     }
+                }*/
+                else if (text[i].Contains("#guid#"))
+                {
+                    Guid id = Guid.NewGuid();
+                    string newLine = "";
+
+                    if (languageExtension.Equals("cs") && _classGuid.Equals(""))
+                    {
+                        newLine = text[i].Replace("#guid#", id + "");
+                    }
+                    else
+                    {
+                        newLine = text[i].Replace("#guid#", _classGuid);
+                    }
+
+                    replaced = replaced + "\n" + newLine;
+
                 }
                 else
                 {

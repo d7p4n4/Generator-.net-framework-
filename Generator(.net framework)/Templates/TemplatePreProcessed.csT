@@ -15,5 +15,10 @@ namespace #namespaceName#
     		public #type# #prop# { get; set; }
 
 		public #className#(){}
+		
+		public #className#()
+		{
+			GUID guid = new GUID("#guid#");
+		}
 	}
 }
