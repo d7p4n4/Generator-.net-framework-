@@ -11,7 +11,7 @@ namespace #namespaceName#
     {
         public #className#Context() : base("#baseName#")
         {
-            Database.SetInitializer<#className#Context>(new CreateDatabaseIfNotExists<#className#Context>());
+            
         }
 
 #classes#
