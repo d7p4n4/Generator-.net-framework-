@@ -36,7 +36,7 @@ namespace Generator_.net_framework_
             _cParameters.ReferencedAssemblies.Add("System.Xml.dll");
             _cParameters.ReferencedAssemblies.Add("System.Xml.Serialization.dll");
             _cParameters.ReferencedAssemblies.Add("ParentClassLibrary.dll");
-            _cParameters.ReferencedAssemblies.Add(typeof(GUID).Assembly.Location);
+            _cParameters.ReferencedAssemblies.Add("GuidLibrary.dll");
 
             StringBuilder _stringBuilder = new StringBuilder();
 

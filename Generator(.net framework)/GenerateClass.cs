@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GuidLibrary;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -16,21 +17,7 @@ namespace Generator_.net_framework_
             string parentLibrary = parentClassLibrary.Substring(0, parentClassLibrary.IndexOf('.'));
             string parentClassName = parentClassLibrary.Substring(parentClassLibrary.IndexOf('.') + 1);
             string _classGuid = "";
-            XmlRootAttribute _attribute = null;
-            _attribute = (XmlRootAttribute) Attribute.GetCustomAttribute(anyType, typeof(XmlRootAttribute));
-            Console.WriteLine(_attribute);
-            try
-            {
-                if (_attribute.ToString().Equals("System.Xml.Serialization.XmlRootAttribute"))
-                {
-                    Console.WriteLine(_attribute.Namespace);
-                    _classGuid = _attribute.Namespace;
-                }
-            }
-            catch (Exception _exception)
-            {
-                
-            }
+            string _guidValue = "";
 
             //get the properties and its type
             Dictionary<string, string> map = InsertGuid.getProps(anyType);
@@ -40,7 +27,15 @@ namespace Generator_.net_framework_
 
             //Has the class GUID value or not
             Boolean classAttr = InsertGuid.hasClassAttr(anyType, typeof(GUID));
+            Console.WriteLine(classAttr);
             Boolean persistent = InsertGuid.hasClassAttr(anyType, typeof(Persistent));
+
+            if (classAttr)
+            {
+                GUID _guidClassAttr = (GUID)anyType.GetCustomAttribute(typeof(GUID), true);
+                _guidValue = _guidClassAttr.getGuid();
+                Console.WriteLine(_guidValue);
+            }
 
             string[] text = new String[0];
 
@@ -120,11 +115,11 @@ namespace Generator_.net_framework_
 
                                 if (languageExtension.Equals("cs"))
                                 {
-                                    //newLine = "            [GUID(\"" + id + "\")]\n";
+                                    newLine = "            [GUID(\"" + id + "\")]\n";
                                 }
                                 else if (languageExtension.Equals("java"))
                                 {
-                                    //newLine = "            @GUID(\"" + id + "\")\n";
+                                    newLine = "            @GUID(\"" + id + "\")\n";
                                 }
                                 newLine = newLine + text[i + 1].Replace("#type#", pair.Value);
                                 newLine = newLine.Replace("#prop#", pair.Key);
@@ -138,11 +133,11 @@ namespace Generator_.net_framework_
 
                                 if (languageExtension.Equals("cs"))
                                 {
-                                    //newLine = "            [GUID(\"" + _guid.Value + "\")]\n";
+                                    newLine = "            [GUID(\"" + _guid.Value + "\")]\n";
                                 }
                                 else if (languageExtension.Equals("java"))
                                 {
-                                    //newLine = "            @GUID(\"" + _guid.Value + "\")\n";
+                                    newLine = "            @GUID(\"" + _guid.Value + "\")\n";
                                 }
                                 newLine = newLine + text[i + 1].Replace("#type#", pair.Value);
                                 newLine = newLine.Replace("#prop#", pair.Key);
@@ -184,36 +179,49 @@ namespace Generator_.net_framework_
                     i = i + 3;
                 }
                 
-                /*else if (!classAttr && text[i].Contains("public class #className#"))
+                else if (text[i].Contains("#guid#"))
                 {
-                    if (text[i].Contains("#guid#"))
+                    string newLine = "";
+                    if (!classAttr)
                     {
                         Guid id = Guid.NewGuid();
-                        string newLine = "";
-
-                        if (languageExtension.Equals("cs") && _attribute == null)
+                        
+                        if (languageExtension.Equals("cs"))
                         {
                             newLine = text[i].Replace("#guid#", id + "");
                         }
                         else if (languageExtension.Equals("java"))
                         {
-                            //newLine = "            @GUID(\"" + id + "\")\n";
+                            newLine = "            @GUID(\"" + id + "\")\n";
                         }
-                        replaced = replaced + newLine + text[i];
+                        replaced = replaced + "\n" + newLine;
                     }
-                }*/
-                else if (text[i].Contains("#guid#"))
+                    else
+                    {
+
+                        if (languageExtension.Equals("cs"))
+                        {
+                            newLine = text[i].Replace("#guid#", _guidValue + "");
+                        }
+                        else if (languageExtension.Equals("java"))
+                        {
+                            newLine = "            @GUID(\"" + _guidValue + "\")\n";
+                        }
+                        replaced = replaced + "\n" + newLine;
+                    }
+                }
+                else if (text[i].Contains("#classGUID#"))
                 {
                     Guid id = Guid.NewGuid();
                     string newLine = "";
 
-                    if (languageExtension.Equals("cs") && _classGuid.Equals(""))
+                    if (languageExtension.Equals("cs") && !classAttr)
                     {
-                        newLine = text[i].Replace("#guid#", id + "");
+                        newLine = text[i].Replace("#classGUID#", "            [GUID(\"" + id + "\")]");
                     }
-                    else
+                    else if(languageExtension.Equals("cs") && classAttr)
                     {
-                        newLine = text[i].Replace("#guid#", _classGuid);
+                        newLine = text[i].Replace("#classGUID#", "            [GUID(\"" + _guidValue + "\")]");
                     }
 
                     replaced = replaced + "\n" + newLine;
@@ -223,6 +231,7 @@ namespace Generator_.net_framework_
                 {
                     replaced = replaced + "\n" + text[i];
                 }
+
             }
             replaced = replaced.Replace("#namespaceName#", package);
 

@@ -4,11 +4,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using GuidLibrary.dll;
 #parentLibrary#
 
 namespace #namespaceName# 
 {
-
+	#classGUID#
 	public class #className# #parentClass#
 	{
 #properties#
