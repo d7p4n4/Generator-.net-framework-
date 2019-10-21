@@ -12,6 +12,9 @@ namespace Generator_.net_framework_
         public static void generateClass(string languageExtension, string package, string className, Type anyType, string outputPath, string[] files)
         {
             package = anyType.Namespace;
+            string parentClassLibrary = anyType.BaseType.ToString();
+            string parentLibrary = parentClassLibrary.Substring(0, parentClassLibrary.IndexOf('.'));
+            string parentClassName = parentClassLibrary.Substring(parentClassLibrary.IndexOf('.') + 1);
             string _classGuid = "";
             XmlRootAttribute _attribute = null;
             _attribute = (XmlRootAttribute) Attribute.GetCustomAttribute(anyType, typeof(XmlRootAttribute));
@@ -53,7 +56,37 @@ namespace Generator_.net_framework_
 
             for (int i = 0; i < text.Length; i++)
             {
-                if (text[i].Equals("#constructor#"))
+                if (text[i].Contains("#parentLibrary#"))
+                {
+                    string newLine = "";
+
+                    if (!parentClassLibrary.Equals("System.Object"))
+                    {
+                        newLine = text[i].Replace("#parentLibrary#", "using " + parentLibrary + ";") + "\n";
+                    }
+                    else
+                    {
+                        newLine = text[i].Replace("#parentLibrary#", "") + "\n";
+                    }
+
+                    replaced = replaced + "\n" + newLine;
+                } 
+                else if (text[i].Contains("#parentClass#"))
+                {
+                    string newLine = "";
+
+                    if (!parentClassLibrary.Equals("System.Object"))
+                    {
+                        newLine = text[i].Replace("#parentClass#", ": " + parentClassName) + "\n";
+                    }
+                    else
+                    {
+                        newLine = text[i].Replace("#parentClass#", "") + "\n";
+                    }
+
+                    replaced = replaced + "\n" + newLine;
+                }
+                else if (text[i].Equals("#constructor#"))
                 {
                     string propNames = "";
                     string newLine = "";

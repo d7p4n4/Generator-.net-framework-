@@ -13,7 +13,6 @@ using System.Xml.Serialization;
 
 namespace Generator_.net_framework_
 {
-    [GuidAttribute("9ED54F84-A89D-4fcd-A854-44251E925F09")]
     class ReadIn
     {
         private string s = "";
@@ -36,6 +35,7 @@ namespace Generator_.net_framework_
             _cParameters.ReferencedAssemblies.Add("System.Runtime.dll");
             _cParameters.ReferencedAssemblies.Add("System.Xml.dll");
             _cParameters.ReferencedAssemblies.Add("System.Xml.Serialization.dll");
+            _cParameters.ReferencedAssemblies.Add("ParentClassLibrary.dll");
             _cParameters.ReferencedAssemblies.Add(typeof(GUID).Assembly.Location);
 
             StringBuilder _stringBuilder = new StringBuilder();
@@ -52,7 +52,6 @@ namespace Generator_.net_framework_
             System.Reflection.Assembly _assembly = results.CompiledAssembly;
             Type[] _types = _assembly.GetTypes();
             Type eType = _types[0];
-
 
             return eType;
         }
