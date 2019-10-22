@@ -23,8 +23,8 @@ namespace Generator_.net_framework_
                     {
                         if (!pair.Type.StartsWith("List") && !pair.Type.StartsWith("Boolean") && !pair.Type.StartsWith("Dictionary"))
                         {
-                            newLine = text[i + 1].Replace("#propName#", pair.Name) + "\n";
-                            newLine = newLine + text[i + 2].Replace("#propName#", pair.Name) + "\n";
+                            newLine = text[i + 1].Replace("#propName#", pair.Name.Substring(0, 1).ToUpper() + pair.Name.Substring(1)) + "\n";
+                            newLine = newLine + text[i + 2].Replace("#propName#", pair.Name.Substring(0, 1).ToUpper() + pair.Name.Substring(1)) + "\n";
                             newLine = newLine + "\n" + text[i + 3] + "\n" + text[i + 4] + "\n" + text[i + 5] + "\n" +
                                 text[i + 6] + "\n" + text[i + 7] + "\n" + text[i + 8] + "\n" + text[i + 9];
                             replaced = replaced + newLine + "\n\n";

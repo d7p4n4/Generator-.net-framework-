@@ -77,7 +77,7 @@ namespace Generator_.net_framework_
                 {
                     string newLine = "";
 
-                    if (!parentClassLibrary.Equals("System.Object"))
+                    if (anyType.Ancestor != null && !anyType.Ancestor.Equals(""))
                     {
                         newLine = text[i].Replace("#parentClass#", ": " + anyType.Ancestor) + "\n";
                     }
@@ -191,7 +191,7 @@ namespace Generator_.net_framework_
                     {
                         newLine = text[i].Replace("#classGUID#", "            [GUID(\"" + id + "\")]");
                     }
-                    else if(languageExtension.Equals("cs") && anyType.GUID == null)
+                    else if(languageExtension.Equals("cs") && anyType.GUID != null)
                     {
                         newLine = text[i].Replace("#classGUID#", "            [GUID(\"" + anyType.GUID + "\")]");
                     }

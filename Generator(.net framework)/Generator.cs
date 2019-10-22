@@ -30,9 +30,9 @@ namespace Generator_.net_framework_
 
                 replaced = replaced + text[i] + "\n";
             }
-            replaced = replaced.Replace("#className#", className).Replace("#baseName#", baseName).Replace("#namespaceName#", namespaceName);
+            replaced = replaced.Replace("#className#", ac4y.Name).Replace("#baseName#", baseName).Replace("#namespaceName#", namespaceName);
 
-            writeOut(replaced, className + "Context", languageExtension, outputPath);
+            writeOut(replaced, ac4y.Name + "Context", languageExtension, outputPath);
         }
         /*
         public static void extensionGenerator(string namespaceName, string fileName, string languageExtension, string outputType, string targetFramework, List<string> folders, Dictionary<string, string> extensions)

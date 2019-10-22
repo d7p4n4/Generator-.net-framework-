@@ -6,7 +6,7 @@ using System.Text;
 
 namespace #namespaceName#
 {
-    class #mainClassName#EntityMethods
+    public class #mainClassName#EntityMethods
     {
 #findFirstBy#
         public static #className# findFirstBy#PropName#(#type# #propName#)
