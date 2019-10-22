@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Ac4yClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Test1</Name>
+  <Ancestor>AncestorClass</Ancestor>
+  <PropertyList>
+    <Ac4yProperty>
+      <Name>Name</Name>
+      <Type>String</Type>
+    </Ac4yProperty>
+    <Ac4yProperty>
+      <Name>Age</Name>
+      <Type>Integer</Type>
+    </Ac4yProperty>
+  </PropertyList>
+</Ac4yClass>

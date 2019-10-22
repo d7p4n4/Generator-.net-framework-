@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSAc4yClass.Class;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -25,35 +26,23 @@ namespace Generator_.net_framework_
         public static void entityGenerateMethods(string[] files)
         {
 
-            List<Type> list = new List<Type>();
+            List<Ac4yClass> list = new List<Ac4yClass>();
             string[] files2 = files;
 
             foreach (var _file in files2)
             {
                 string _filename = Path.GetFileNameWithoutExtension(_file);
-                list.Add(ReadIn.ReadLines(_file));
+                list.Add(DeserialiseMethod.deser(_file));
             }
 
             for (var x = 0; x < files2.Length; x++)
             {
                 string _filename = Path.GetFileNameWithoutExtension(files2[x]);
                 Generator.contextGenerate(list[x], _filename, list[x].Name + "Db", list[x].Namespace, "Template", APPSETTINGS_LANGUAGE, APPSETTINGS_OUTPUTPATH);
-            }
+            
+                Generator.generateEntityMethods("TemplateEntityMethods", APPSETTINGS_LANGUAGE, list[x].Namespace, list[x], APPSETTINGS_OUTPUTPATH);
 
-            Dictionary<string, string> values = new Dictionary<string, string>();
-            foreach (var _listElement in list)
-            {
-                string name = _listElement.Name;
-                string vName = name.Substring(0, 1).ToLower();
-
-                values.Add(name, vName);
-            }
-
-            foreach (var _listElement in list)
-            {
-                Generator.generateEntityMethods("TemplateEntityMethods", APPSETTINGS_LANGUAGE, _listElement.Namespace, _listElement, APPSETTINGS_OUTPUTPATH);
-
-                Generator.programGenerator("TemplateSaveProgram", APPSETTINGS_LANGUAGE, _listElement.Namespace, _listElement, values, APPSETTINGS_OUTPUTPATH);
+                Generator.programGenerator("TemplateSaveProgram", APPSETTINGS_LANGUAGE, list[x].Namespace, list[x], APPSETTINGS_OUTPUTPATH);
             }
         }
     }

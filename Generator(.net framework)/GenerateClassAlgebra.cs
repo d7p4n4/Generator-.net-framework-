@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSAc4yClass.Class;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -7,7 +8,7 @@ namespace Generator_.net_framework_
 {
     class GenerateClassAlgebra
     {
-        public static void generateClass(string templateName, string languageExtension, string package, string className, Dictionary<string, string> map, string outputPath, string[] files)
+        public static void generateClass(string templateName, string languageExtension, string package, string className, List<Ac4yProperty> map, string outputPath, string[] files)
         {
             string[] text = readIn(templateName, languageExtension);
 
@@ -20,10 +21,10 @@ namespace Generator_.net_framework_
                 {
                     foreach (var pair in map)
                     {
-                        if (!pair.Value.StartsWith("List") && !pair.Value.StartsWith("Boolean") && !pair.Value.StartsWith("Dictionary"))
+                        if (!pair.Type.StartsWith("List") && !pair.Type.StartsWith("Boolean") && !pair.Type.StartsWith("Dictionary"))
                         {
-                            newLine = text[i + 1].Replace("#propName#", pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1)) + "\n";
-                            newLine = newLine + text[i + 2].Replace("#propName#", pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1)) + "\n";
+                            newLine = text[i + 1].Replace("#propName#", pair.Name) + "\n";
+                            newLine = newLine + text[i + 2].Replace("#propName#", pair.Name) + "\n";
                             newLine = newLine + "\n" + text[i + 3] + "\n" + text[i + 4] + "\n" + text[i + 5] + "\n" +
                                 text[i + 6] + "\n" + text[i + 7] + "\n" + text[i + 8] + "\n" + text[i + 9];
                             replaced = replaced + newLine + "\n\n";
@@ -36,12 +37,12 @@ namespace Generator_.net_framework_
                 {
                     foreach (var pair in map)
                     {
-                        newLine = text[i + 1].Replace("#type#", pair.Value);
-                        newLine = newLine.Replace("#prop#", pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1));
+                        newLine = text[i + 1].Replace("#type#", pair.Type);
+                        newLine = newLine.Replace("#prop#", pair.Name.Substring(0, 1).ToUpper() + pair.Name.Substring(1));
 
                         replaced = replaced + "\n" + newLine;
 
-                        newLine = text[i + 2].Replace("#prop#", pair.Key);
+                        newLine = text[i + 2].Replace("#prop#", pair.Name);
                         replaced = replaced + "\n" + newLine + "\n        }\n";
                     }
                     i = i + 3;
@@ -50,12 +51,12 @@ namespace Generator_.net_framework_
                 {
                     foreach (var pair in map)
                     {
-                        newLine = text[i + 1].Replace("#prop#", pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1));
-                        newLine = newLine.Replace("#type#", pair.Value);
+                        newLine = text[i + 1].Replace("#prop#", pair.Name.Substring(0, 1).ToUpper() + pair.Name.Substring(1));
+                        newLine = newLine.Replace("#type#", pair.Type);
 
                         replaced = replaced + "\n" + newLine;
 
-                        newLine = text[i + 2].Replace("#prop#", pair.Key);
+                        newLine = text[i + 2].Replace("#prop#", pair.Name);
                         replaced = replaced + "\n" + newLine + "\n        }\n";
                     }
                     i = i + 3;
@@ -64,10 +65,10 @@ namespace Generator_.net_framework_
                 {
                     foreach (var pair in map)
                     {
-                        if (pair.Value.StartsWith("Boolean"))
+                        if (pair.Type.StartsWith("Boolean"))
                         {
-                            newLine = text[i + 1].Replace("#propName#", pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1)) + "\n";
-                            newLine = newLine + text[i + 2].Replace("#propName#", pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1)) + "\n";
+                            newLine = text[i + 1].Replace("#propName#", pair.Name.Substring(0, 1).ToUpper() + pair.Name.Substring(1)) + "\n";
+                            newLine = newLine + text[i + 2].Replace("#propName#", pair.Name.Substring(0, 1).ToUpper() + pair.Name.Substring(1)) + "\n";
                             newLine = newLine + "\n" + text[i + 3] + "\n";
                             replaced = replaced + newLine + "\n\n";
                         }
@@ -79,11 +80,11 @@ namespace Generator_.net_framework_
                 {
                     foreach (var pair in map)
                     {
-                        if (pair.Value.StartsWith("List") || pair.Value.StartsWith("Dictionary"))
+                        if (pair.Type.StartsWith("List") || pair.Type.StartsWith("Dictionary"))
                         {
-                            newLine = text[i + 1].Replace("#propName#", pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1));
+                            newLine = text[i + 1].Replace("#propName#", pair.Name.Substring(0, 1).ToUpper() + pair.Name.Substring(1));
                             newLine = newLine + "\n" + text[i + 2] + "\n";
-                            newLine = newLine + text[i + 3].Replace("#propName#", pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1));
+                            newLine = newLine + text[i + 3].Replace("#propName#", pair.Name.Substring(0, 1).ToUpper() + pair.Name.Substring(1));
                             newLine = newLine + "\n" + text[i + 4] + "\n" + text[i + 5] + "\n" + text[i + 6] + "\n";
                             replaced = replaced + newLine + "\n\n";
                         }
@@ -95,11 +96,11 @@ namespace Generator_.net_framework_
                 {
                     foreach (var pair in map)
                     {
-                        if (pair.Value.StartsWith("List") || pair.Value.StartsWith("Dictionary"))
+                        if (pair.Type.StartsWith("List") || pair.Type.StartsWith("Dictionary"))
                         {
-                            newLine = text[i + 1].Replace("#propName#", pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1));
+                            newLine = text[i + 1].Replace("#propName#", pair.Name.Substring(0, 1).ToUpper() + pair.Name.Substring(1));
                             newLine = newLine + "\n" + text[i + 2] + "\n";
-                            newLine = newLine + text[i + 3].Replace("#propName#", pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1));
+                            newLine = newLine + text[i + 3].Replace("#propName#", pair.Name.Substring(0, 1).ToUpper() + pair.Name.Substring(1));
                             newLine = newLine + "\n" + text[i + 4] + "\n" + text[i + 5] + "\n" + text[i + 6] + "\n" +
                                 text[i + 7] + "\n" + text[i + 8] + "\n" + text[i + 9] + "\n" + text[i + 10] + "\n" +
                                 text[i + 11] + "\n" + text[i + 12] + "\n" + text[i + 13];

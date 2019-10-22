@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSAc4yClass.Class;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -40,24 +41,27 @@ namespace Generator_.net_framework_
         static void Main(string[] args)
             {
 
-            //Date: 2019. 10. 21. 21:24
+            //Date: 2019. 10. 22. 18:52
 
             log.Debug("path:"+ GetAppConfigStringParameter(APPSETTINGS_CLASSNAME));
 
             try
             {
                 string[] files =
-                    Directory.GetFiles(APPSETTINGS_INPATH, "*.cs", SearchOption.TopDirectoryOnly);
+                    Directory.GetFiles(APPSETTINGS_INPATH, "*.xml", SearchOption.TopDirectoryOnly);
 
                 foreach (var _file in files)
                 {
                     string _filename = Path.GetFileNameWithoutExtension(_file);
                     Console.WriteLine(_filename);
-                    GenerateClass.generateClass(APPSETTINGS_LANGUAGE, APPSETTINGS_NAMESPACE, _filename, ReadIn.ReadLines(_file), APPSETTINGS_OUTPUTPATH, files);
+
+                    Ac4yClass ac4y = DeserialiseMethod.deser(_file);
+
+                    GenerateClass.generateClass(APPSETTINGS_LANGUAGE, ac4y, APPSETTINGS_OUTPUTPATH, files);
                 }
             } catch (Exception _exception)
             {
-                log.Error(_exception.Message);
+                log.Error(_exception.StackTrace);
             }
         }
     }
