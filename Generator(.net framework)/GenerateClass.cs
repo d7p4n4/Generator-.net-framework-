@@ -58,7 +58,25 @@ namespace Generator_.net_framework_
 
             for (int i = 0; i < text.Length; i++)
             {
-                if (text[i].Contains("#parentLibrary#"))
+                if (text[i].Contains("#constructor#"))
+                {
+                    string newLine = "";
+                    string props = "";
+                    foreach(var _prop in map)
+                    {
+                        props = props + _prop.Name + ", ";
+                    }
+                    newLine = text[i + 1].Replace("#allProps#", props) + "\n";
+
+                    foreach(var _prop in map)
+                    {
+                        newLine = newLine + text[i + 2].Replace("#prop#", _prop.Name) + "\n";
+                    }
+                    replaced = replaced + "\n" + newLine;
+
+                    i = i + 2;
+                }
+                else if (text[i].Contains("#parentLibrary#"))
                 {/*
                     string newLine = "";
 
@@ -89,7 +107,7 @@ namespace Generator_.net_framework_
                     replaced = replaced + "\n" + newLine;
                 }
                 else if (text[i].Equals("#constructor#"))
-                {
+                {/*
                     string propNames = "";
                     string newLine = "";
 
@@ -106,7 +124,7 @@ namespace Generator_.net_framework_
 
                     replaced = replaced + "\n" + newLine;
 
-                    i = i + 3;
+                    i = i + 3;*/
                 }
                 else if (text[i].Equals("#properties#"))
                 {
@@ -209,9 +227,11 @@ namespace Generator_.net_framework_
 
             replaced = replaced.Replace("#className#", className + "PreProcessed");
             writeOut(replaced, className, languageExtension, outputPath);
-            
 
-            GenerateClassAlgebra.generateClass("Template", languageExtension, package, className, map, outputPath, files);
+            if (!languageExtension.Equals("js"))
+            {
+                GenerateClassAlgebra.generateClass("Template", languageExtension, package, className, map, outputPath, files);
+            }
         }
 
         public static string[] readIn(string fileName, string languageExtension)

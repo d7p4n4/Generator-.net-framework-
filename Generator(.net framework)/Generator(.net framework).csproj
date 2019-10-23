@@ -111,7 +111,7 @@
     <None Include="Templates\TemplateAlgebra.jsT" />
     <None Include="Templates\TemplateBase.csT" />
     <None Include="Templates\TemplateBase.javaT" />
-    <None Include="Templates\TemplateBase.jsT" />
+    <None Include="Templates\TemplatePreProcessed.jsT" />
     <None Include="Templates\TemplatePersistentBase.csT" />
   </ItemGroup>
   <ItemGroup>
