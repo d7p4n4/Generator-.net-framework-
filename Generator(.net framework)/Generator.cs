@@ -1,6 +1,7 @@
 ﻿using CSAc4yClass.Class;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -14,6 +15,11 @@ namespace Generator_.net_framework_
             string[] text = readIn(fileName + "Context", languageExtension);
             string replaced = "";
             string newLine = "";
+
+            if(namespaceName == null || namespaceName.Equals(""))
+            {
+                namespaceName = ConfigurationManager.AppSettings["namespace"];
+            }
 
             for (int i = 0; i < text.Length; i++)
             {
@@ -86,6 +92,11 @@ namespace Generator_.net_framework_
             string replaced = "";
             string newLine = "";
 
+            if (namespaceName == null || namespaceName.Equals(""))
+            {
+                namespaceName = ConfigurationManager.AppSettings["namespace"];
+            }
+
             for (int i = 0; i < text.Length; i++)
             {
                 if (text[i].Equals("#values#"))
@@ -119,6 +130,11 @@ namespace Generator_.net_framework_
             string[] text = readIn(fileName, languageExtension);
             string replaced = "";
             string newLine = "";
+
+            if (namespaceName == null || namespaceName.Equals(""))
+            {
+                namespaceName = ConfigurationManager.AppSettings["namespace"];
+            }
 
             int y = 0;
 

@@ -16,7 +16,7 @@ namespace #namespaceName#
             using (var ctx = new #classContextName#())
             {
                 var query = ctx.#contextPropName#
-                                .Where(s => s.#propName# == #propName#)
+                                .Where(ss => ss.#propName# == #propName#)
                                 .FirstOrDefault<#className#>();
 
                 #valueName# = query;
@@ -32,7 +32,7 @@ namespace #namespaceName#
             using (var ctx = new #classContextName#())
             {
                 var query = ctx.#contextPropName#
-                                .Where(s => s.#propName# == #propName#);
+                                .Where(ss => ss.#propName# == #propName#);
 
                 #valueName# = query;
             }
@@ -47,7 +47,7 @@ namespace #namespaceName#
             using (var ctx = new #classContextName#())
             {
                 var query = ctx.#contextPropName#
-                                .Where(s => s.#propName# == #propName#)
+                                .Where(ss => ss.#propName# == #propName#)
                                 .FirstOrDefault<#className#>();
 
                 #valueName# = query;
@@ -68,7 +68,7 @@ namespace #namespaceName#
             using (var ctx = new #classContextName#())
             {
                 var query = ctx.#contextPropName#
-                                .Remove(ctx.#contextPropName#.Single(s => s.#propName# == #propName#));
+                                .Remove(ctx.#contextPropName#.Single(ss => ss.#propName# == #propName#));
 
                 ctx.SaveChanges();
             }
