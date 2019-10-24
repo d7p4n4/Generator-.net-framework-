@@ -39,7 +39,7 @@ namespace Generator_.net_framework_
             {
                 string _filename = Path.GetFileNameWithoutExtension(files2[x]);
                 
-                Generator.contextGenerate(list[x], _filename, list[x].Name + "Db", list[x].Namespace, "Template", APPSETTINGS_LANGUAGE, APPSETTINGS_OUTPUTPATH);
+                Generator.contextGenerate(list[x], list[x].Name + "Db", list[x].Namespace, "Template", APPSETTINGS_LANGUAGE, APPSETTINGS_OUTPUTPATH);
             
                 Generator.generateEntityMethods("TemplateEntityMethods", APPSETTINGS_LANGUAGE, list[x].Namespace, list[x], APPSETTINGS_OUTPUTPATH);
 

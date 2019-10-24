@@ -11,10 +11,8 @@ namespace Generator_.net_framework_
 {
     class DeserialiseMethod
     {
-        public static Ac4yClass deser(string path)
-
-        
-{
+        public static Ac4yClass deser(string path)     
+        {
             Ac4yClass ac4y = null;
 
             XmlSerializer serializer = new XmlSerializer(typeof(Ac4yClass));

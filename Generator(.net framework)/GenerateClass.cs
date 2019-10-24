@@ -16,10 +16,6 @@ namespace Generator_.net_framework_
         {
             string className = anyType.Name;
             string package = anyType.Namespace;
-            string parentClassLibrary = anyType.Ancestor;
-            string _classGuid = "";
-            string _guidValue = "";
-            Boolean persistent = false;
 
             //get the properties and its type
             List<Ac4yProperty> map = anyType.PropertyList;
@@ -29,31 +25,10 @@ namespace Generator_.net_framework_
                 package = ConfigurationManager.AppSettings["namespace"];
             }
 
-            //get the GUID value of the properties
-            //Dictionary<string, string> guid = InsertGuid.getAttrs(anyType);
-
-            //Has the class GUID value or not
-            /*Boolean classAttr = InsertGuid.hasClassAttr(anyType, typeof(GUID));
-            Console.WriteLine(classAttr);
-            Boolean persistent = InsertGuid.hasClassAttr(anyType, typeof(Persistent));
-
-            if (classAttr)
-            {
-                GUID _guidClassAttr = (GUID)anyType.GetCustomAttribute(typeof(GUID), true);
-                _guidValue = _guidClassAttr.getGuid();
-                Console.WriteLine(_guidValue);
-            }*/
-
             string[] text = new String[0];
 
-            if (persistent && languageExtension.Equals("cs"))
-            {
-                text = readIn("TemplatePersistent", languageExtension);
-            }
-            else
-            {
-                text = readIn("Template", languageExtension);
-            }
+            text = readIn("Template", languageExtension);
+            
             string replaced = "";
 
             for (int i = 0; i < text.Length; i++)
@@ -77,19 +52,8 @@ namespace Generator_.net_framework_
                     i = i + 2;
                 }
                 else if (text[i].Contains("#parentLibrary#"))
-                {/*
-                    string newLine = "";
-
-                    if (!parentClassLibrary.Equals("System.Object"))
-                    {
-                        newLine = text[i].Replace("#parentLibrary#", "using " + parentLibrary + ";") + "\n";
-                    }
-                    else
-                    {
-                        newLine = text[i].Replace("#parentLibrary#", "") + "\n";
-                    }
-
-                    replaced = replaced + "\n" + newLine;*/
+                {
+                    //Még kellhet
                 } 
                 else if (text[i].Contains("#parentClass#"))
                 {
@@ -105,26 +69,6 @@ namespace Generator_.net_framework_
                     }
 
                     replaced = replaced + "\n" + newLine;
-                }
-                else if (text[i].Equals("#constructor#"))
-                {/*
-                    string propNames = "";
-                    string newLine = "";
-
-                    foreach (var pair in map)
-                    {
-                        propNames = propNames + pair.Name + ", ";
-                    }
-                    newLine = text[i + 1].Replace("#allProps#", propNames.Substring(0, propNames.Length - 2)) + "\n";
-                    foreach (var pair in map)
-                    {
-                        newLine = newLine + text[i + 2].Replace("#prop#", pair.Name) + "\n";
-                    }
-                    newLine = newLine + text[i + 3];
-
-                    replaced = replaced + "\n" + newLine;
-
-                    i = i + 3;*/
                 }
                 else if (text[i].Equals("#properties#"))
                 {
@@ -238,7 +182,6 @@ namespace Generator_.net_framework_
             string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\Templates\\", fileName + "PreProcessed." + languageExtension + "T");
 
             string[] text = File.ReadAllLines(textFile);
-            Console.WriteLine(textFile);
 
             return text;
 

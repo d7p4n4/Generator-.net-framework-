@@ -35,8 +35,6 @@ namespace Generator_.net_framework_
             string[] text = File.ReadAllLines(textFile);
 
             return text;
-
-
         }
 
         public static void writeOut(string text, string fileName, string languageExtension, string outputPath)

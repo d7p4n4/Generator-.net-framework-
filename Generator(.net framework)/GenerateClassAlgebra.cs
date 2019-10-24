@@ -177,8 +177,7 @@ namespace Generator_.net_framework_
         {
 
             string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\Templates\\", fileName + "Algebra." + languageExtension + "T");
-            Console.WriteLine(textFile);
-
+            
             string[] text = File.ReadAllLines(textFile);
 
             return text;

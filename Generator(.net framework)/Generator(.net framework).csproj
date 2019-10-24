@@ -36,8 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CSAc4yMetaClassLibrary">
-      <HintPath>.\CSAc4yMetaClassLibrary.dll</HintPath>
+    <Reference Include="CSAc4yMetaClassLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Library\c#\CSAc4yMetaClassLibrary.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.dll</HintPath>
@@ -45,14 +46,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="GuidLibrary">
-      <HintPath>..\..\GuidLibrary\GuidLibrary\bin\Debug\GuidLibrary.dll</HintPath>
+    <Reference Include="GuidLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Library\c#\GuidLibrary.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="ParentClassLibrary">
-      <HintPath>..\..\ParentClassLibrary\ParentClassLibrary\bin\Debug\ParentClassLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -89,16 +88,12 @@
   <ItemGroup>
     <Compile Include="DeserialiseMethod.cs" />
     <Compile Include="EntityGenerate.cs" />
-    <Compile Include="GenerateHelperMethods.cs" />
     <Compile Include="Generator.cs" />
     <Compile Include="GenerateClass.cs" />
     <Compile Include="GenerateClassAlgebra.cs" />
-    <Compile Include="InsertGuid.cs" />
-    <Compile Include="Persistent.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GenerateClassEmpty.cs" />
-    <Compile Include="ReadIn.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
