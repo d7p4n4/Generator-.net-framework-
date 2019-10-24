@@ -61,6 +61,50 @@ namespace Generator_.net_framework_
                     }
                     i = i + 3;
                 }
+                else if (text[i].Contains("#setGetHas#"))
+                {
+                    foreach(var _prop in map)
+                    {
+                        //set
+                        newLine = newLine + text[i + 1].Replace("#Prop#", _prop.Name.Substring(0, 1).ToUpper() + _prop.Name.Substring(1))
+                                                     .Replace("#prop#", _prop.Name) + "\n";
+                        newLine = newLine + text[i + 2].Replace("#prop#", _prop.Name) + "\n" + text[i + 3] + "\n";
+                        //get
+                        newLine = newLine + text[i + 4].Replace("#Prop#", _prop.Name.Substring(0, 1).ToUpper() + _prop.Name.Substring(1))
+                                                     .Replace("#prop#", _prop.Name) + "\n";
+                        newLine = newLine + text[i + 5].Replace("#prop#", _prop.Name) + "\n" + text[i + 6] + "\n";
+                        //has
+                        newLine = newLine + text[i + 7].Replace("#Prop#", _prop.Name.Substring(0, 1).ToUpper() + _prop.Name.Substring(1))
+                                                     .Replace("#prop#", _prop.Name) + "\n";
+                        newLine = newLine + text[i + 8].Replace("#prop#", _prop.Name) + "\n" + text[i + 9] + "\n\n";
+
+
+                    }
+                    replaced = replaced + newLine + "\n";
+
+                    i = i + 9;
+                }
+                else if (text[i].Contains("#rebuild#"))
+                {
+                    foreach (var _prop in map) {
+                        newLine = newLine + text[i + 1].Replace("#prop#", _prop.Name)
+                                                       .Replace("#Prop#", _prop.Name.Substring(0, 1).ToUpper() + _prop.Name.Substring(1)) + "\n";
+                    }
+                    replaced = replaced + newLine + "\n";
+
+                    i = i + 1;
+                }
+                else if (text[i].Contains("#copy#"))
+                {
+                    foreach (var _prop in map)
+                    {
+                        newLine = newLine + text[i + 1].Replace("#prop#", _prop.Name)
+                                                       .Replace("#Prop#", _prop.Name.Substring(0, 1).ToUpper() + _prop.Name.Substring(1)) + "\n";
+                    }
+                    replaced = replaced + newLine + "\n";
+
+                    i = i + 1;
+                }
                 else if (text[i].Contains("#is#"))
                 {
                     foreach (var pair in map)
@@ -123,7 +167,10 @@ namespace Generator_.net_framework_
 
             writeOut(replaced, className, languageExtension, outputPath);
 
-            GenerateClassEmpty.generateClass(templateName, languageExtension, package, className, outputPath, files);
+            if (!languageExtension.Equals("js"))
+            {
+                GenerateClassEmpty.generateClass(templateName, languageExtension, package, className, outputPath, files);
+            }
         }
 
         public static string[] readIn(string fileName, string languageExtension)

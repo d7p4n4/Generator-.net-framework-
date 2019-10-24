@@ -228,10 +228,8 @@ namespace Generator_.net_framework_
             replaced = replaced.Replace("#className#", className + "PreProcessed");
             writeOut(replaced, className, languageExtension, outputPath);
 
-            if (!languageExtension.Equals("js"))
-            {
-                GenerateClassAlgebra.generateClass("Template", languageExtension, package, className, map, outputPath, files);
-            }
+            GenerateClassAlgebra.generateClass("Template", languageExtension, package, className, map, outputPath, files);
+            
         }
 
         public static string[] readIn(string fileName, string languageExtension)
