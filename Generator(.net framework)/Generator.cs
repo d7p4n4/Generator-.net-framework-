@@ -162,6 +162,24 @@ namespace Generator_.net_framework_
                     i = i + 13;
                     y = 0;
                 }
+                else if (text[i].Contains("#update#"))
+                {
+                    newLine = text[i + 1].Replace("#className#", ac4y.Name) + "\n" + text[i + 2] + "\n";
+                    newLine = newLine + text[i + 3].Replace("#classContextName#", ac4y.Name + "Context") + "\n" + text[i + 4] + "\n";
+                    newLine = newLine + text[i + 5].Replace("#contextPropName#", ac4y.Name + "s").Replace("#className#", ac4y.Name)
+                                      + "\n" + text[i + 6].Replace("#className#", ac4y.Name) + "\n\n";
+
+                    foreach(var prop in props)
+                    {
+                        newLine = newLine + text[i + 8].Replace("#className", ac4y.Name).Replace("#prop#", prop.Name) + "\n";
+                    }
+
+                    newLine = newLine + text[i + 9] + "\n" + text[i + 10] + "\n" + text[i + 11] + "\n";
+
+                    replaced = replaced + newLine + "\n";
+
+                    i = i + 9;
+                }
                 else if (text[i].Equals("#deleteById#"))
                 {
                         foreach (var prop in props)
@@ -207,6 +225,7 @@ namespace Generator_.net_framework_
                 {
                     replaced = replaced + text[i] + "\n";
                 }
+                newLine = "";
             }
 
             replaced = replaced.Replace("#namespaceName#", namespaceName);

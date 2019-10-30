@@ -25,14 +25,14 @@ namespace #namespaceName#
         }
 
 #findListBy#
-        public static IQueryable<#className#> findListBy#PropName#(#type# #propName#)
+        public static List<#className#> findListBy#PropName#(#type# #propName#)
         {
-            IQueryable<#className#> #valueName#;
+            List<#className#> #valueName# = new List<#className#>();
 
             using (var ctx = new #classContextName#())
             {
                 var query = ctx.#contextPropName#
-                                .Where(ss => ss.#propName# == #propName#);
+                                .Where(ss => ss.#propName# == #propName#).ToList();
 
                 #valueName# = query;
             }
@@ -61,6 +61,19 @@ namespace #namespaceName#
 			return false;
 		}
 	}
+	
+#update#
+		public void update#className#(#className# updated#className#)
+        {
+            using(var ctx = new #classContextName#())
+            {
+                var _#className# = ctx.#contextPropName#
+				.Where(ss => ss.id == updated#className#.id).FirstOrDefault();
+									  
+                _#className#.#prop# = updated#className#.#prop#;
+                ctx.SaveChanges();
+            }
+        }
 
 #deleteById#
         public static void deleteById(#type# #propName#)

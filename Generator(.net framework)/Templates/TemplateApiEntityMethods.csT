@@ -1,0 +1,57 @@
+using CSAspRestApi1.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using #dataAccessDllName#;
+
+namespace #namespaceName#.Controllers
+{
+    public class #className#Controller : ApiController
+    {
+
+#getFirstBy#
+        public ResponseModel GetFirstBy#Prop#(#type# id)
+        {
+            ResponseModel _objResponseModel = new ResponseModel();
+
+            _objResponseModel.Data = #className#EntityMethods.findFirstBy#Prop#(id);
+            _objResponseModel.Status = true;
+            _objResponseModel.Message = "Data Received successfully";
+            
+            return _objResponseModel;
+        }
+
+#getListBy#
+        public ResponseModel GetListBy#Prop#(#type# id)
+        {
+            ResponseModel _objResponseModel = new ResponseModel();
+            List<#className#s> _#className# = #className#EntityMethods.findListBy#Prop#(id);
+
+            _objResponseModel.Data = _#className#;
+            _objResponseModel.Status = true;
+            _objResponseModel.Message = "Data Received successfully";
+
+            return _objResponseModel;
+        }
+
+        public void Post(#className#s _#className#)
+        {
+            #className#EntityMethods.addNew#className#(_#className#);
+        }
+
+        public void Delete(int id)
+        {
+            #className#EntityMethods.deleteById(id);
+        }
+
+        public void Update(#className#s _#className#)
+        {
+            #className#EntityMethods _entityMethods = new #className#EntityMethods();
+
+            _entityMethods.update#className#(_#className#);
+        }
+    }
+}

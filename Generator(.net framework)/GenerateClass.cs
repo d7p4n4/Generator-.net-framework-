@@ -173,6 +173,8 @@ namespace Generator_.net_framework_
             writeOut(replaced, className, languageExtension, outputPath);
 
             GenerateClassAlgebra.generateClass("Template", languageExtension, package, className, map, outputPath, files);
+            ApiMethodGenerator.generateApiMethods("Template", languageExtension, package, className, map, outputPath);
+            GenerateResponseModel.generateResponseModel(languageExtension, package, outputPath);
             
         }
 

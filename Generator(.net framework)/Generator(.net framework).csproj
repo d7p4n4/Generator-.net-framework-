@@ -86,8 +86,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiMethodGenerator.cs" />
     <Compile Include="DeserialiseMethod.cs" />
     <Compile Include="EntityGenerate.cs" />
+    <Compile Include="GenerateResponseModel.cs" />
     <Compile Include="Generator.cs" />
     <Compile Include="GenerateClass.cs" />
     <Compile Include="GenerateClassAlgebra.cs" />
@@ -104,10 +106,8 @@
     <None Include="Templates\TemplateAlgebra.csT" />
     <None Include="Templates\TemplateAlgebra.javaT" />
     <None Include="Templates\TemplateAlgebra.jsT" />
-    <None Include="Templates\TemplateBase.csT" />
     <None Include="Templates\TemplateBase.javaT" />
     <None Include="Templates\TemplatePreProcessed.jsT" />
-    <None Include="Templates\TemplatePersistentBase.csT" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Generated\" />
