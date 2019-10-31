@@ -7,9 +7,9 @@ namespace Generator_.net_framework_
 {
     class GenerateClassEmpty
     {
-        public static void generateClass(string templateName, string languageExtension, string package, string className, string outputPath, string[] files)
+        public static void generateClass(string templateName, string package, string className, string outputPath, string[] files)
         {
-            string[] text = readIn(templateName, languageExtension);
+            string[] text = readIn(templateName);
 
             string replaced = "";
 
@@ -22,24 +22,24 @@ namespace Generator_.net_framework_
             replaced = replaced.Replace("#className#", className);
             replaced = replaced.Replace("#parentClassName#", className + "Algebra");
 
-            writeOut(replaced, className, languageExtension, outputPath);
+            writeOut(replaced, className, outputPath);
 
             EntityGenerate.entityGenerateMethods(files);
         }
 
-        public static string[] readIn(string fileName, string languageExtension)
+        public static string[] readIn(string fileName)
         {
 
-            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\Templates\\", fileName + "." + languageExtension + "T");
+            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\Templates\\", fileName + ".csT");
 
             string[] text = File.ReadAllLines(textFile);
 
             return text;
         }
 
-        public static void writeOut(string text, string fileName, string languageExtension, string outputPath)
+        public static void writeOut(string text, string fileName, string outputPath)
         {
-            File.WriteAllText(outputPath + fileName + "." + languageExtension, text);
+            File.WriteAllText(outputPath + fileName + ".cs", text);
 
         }
     }

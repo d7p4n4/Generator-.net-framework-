@@ -13,15 +13,9 @@ namespace Generator_.net_framework_
         {
 
         #region constant
-
-        private static readonly string APPSETTINGS_LANGUAGE = ConfigurationManager.AppSettings["language"];
-        private static readonly string APPSETTINGS_NAMESPACE = ConfigurationManager.AppSettings["namespace"];
         private static readonly string APPSETTINGS_CLASSNAME = ConfigurationManager.AppSettings["className"];
         private static readonly string APPSETTINGS_OUTPUTPATH = ConfigurationManager.AppSettings["outputPath"];
-        private static readonly string APPSETTINGS_BASENAME = ConfigurationManager.AppSettings["baseName"];
         private static readonly string APPSETTINGS_INPATH = ConfigurationManager.AppSettings["inputPath"];
-        private static readonly string APPSETTINGS_INPATHPREPROC = ConfigurationManager.AppSettings["inputPathPreProc"];
-        private static readonly string APPSETTINGS_INPUTNAMESPACE = ConfigurationManager.AppSettings["inputNamespace"];
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -57,7 +51,7 @@ namespace Generator_.net_framework_
 
                     Ac4yClass ac4y = DeserialiseMethod.deser(_file);
 
-                    GenerateClass.generateClass(APPSETTINGS_LANGUAGE, ac4y, APPSETTINGS_OUTPUTPATH, files);
+                    GenerateClass.generateClass(ac4y, APPSETTINGS_OUTPUTPATH, files);
                 }
             } catch (Exception _exception)
             {

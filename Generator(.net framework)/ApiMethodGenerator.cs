@@ -11,9 +11,9 @@ namespace Generator_.net_framework_
     class ApiMethodGenerator
     {
 
-        public static void generateApiMethods(string templateName, string languageExtension, string package, string className, List<Ac4yProperty> map, string outputPath)
+        public static void generateApiMethods(string templateName, string package, string className, List<Ac4yProperty> map, string outputPath)
         {
-            string[] text = readIn(templateName, languageExtension);
+            string[] text = readIn(templateName);
 
             string replaced = "";
             string newLine = "";
@@ -60,14 +60,14 @@ namespace Generator_.net_framework_
             replaced = replaced.Replace("#namespaceName#", package + "Api");
             replaced = replaced.Replace("#className#", className);
 
-            writeOut(replaced, className, languageExtension, outputPath);
+            writeOut(replaced, className, outputPath);
 
         }
 
-        public static string[] readIn(string fileName, string languageExtension)
+        public static string[] readIn(string fileName)
         {
 
-            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\Templates\\", fileName + "ApiEntityMethods." + languageExtension + "T");
+            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\Templates\\", fileName + "ApiEntityMethods.csT");
 
             string[] text = File.ReadAllLines(textFile);
 
@@ -76,9 +76,9 @@ namespace Generator_.net_framework_
 
         }
 
-        public static void writeOut(string text, string fileName, string languageExtension, string outputPath)
+        public static void writeOut(string text, string fileName, string outputPath)
         {
-            File.WriteAllText(outputPath + fileName + "Controller." + languageExtension, text);
+            File.WriteAllText(outputPath + fileName + "Controller.cs", text);
 
         }
     }

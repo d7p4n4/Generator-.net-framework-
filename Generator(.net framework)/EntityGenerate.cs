@@ -13,14 +13,7 @@ namespace Generator_.net_framework_
     {
 
         #region values
-        private static readonly string APPSETTINGS_LANGUAGE = ConfigurationManager.AppSettings["language"];
-        private static readonly string APPSETTINGS_NAMESPACE = ConfigurationManager.AppSettings["namespace"];
-        private static readonly string APPSETTINGS_CLASSNAME = ConfigurationManager.AppSettings["className"];
         private static readonly string APPSETTINGS_OUTPUTPATH = ConfigurationManager.AppSettings["outputPath"];
-        private static readonly string APPSETTINGS_BASENAME = ConfigurationManager.AppSettings["baseName"];
-        private static readonly string APPSETTINGS_INPATH = ConfigurationManager.AppSettings["inputPath"];
-        private static readonly string APPSETTINGS_INPATHPREPROC = ConfigurationManager.AppSettings["inputPathPreProc"];
-        private static readonly string APPSETTINGS_INPUTNAMESPACE = ConfigurationManager.AppSettings["inputNamespace"];
         #endregion
 
         public static void entityGenerateMethods(string[] files)
@@ -39,11 +32,11 @@ namespace Generator_.net_framework_
             {
                 string _filename = Path.GetFileNameWithoutExtension(files2[x]);
                 
-                Generator.contextGenerate(list[x], list[x].Name + "Db", list[x].Namespace, "Template", APPSETTINGS_LANGUAGE, APPSETTINGS_OUTPUTPATH);
+                Generator.contextGenerate(list[x], list[x].Name + "Db", list[x].Namespace, "Template", APPSETTINGS_OUTPUTPATH);
             
-                Generator.generateEntityMethods("TemplateEntityMethods", APPSETTINGS_LANGUAGE, list[x].Namespace, list[x], APPSETTINGS_OUTPUTPATH);
+                Generator.generateEntityMethods("TemplateEntityMethods", list[x].Namespace, list[x], APPSETTINGS_OUTPUTPATH);
 
-                Generator.programGenerator("TemplateSaveProgram", APPSETTINGS_LANGUAGE, list[x].Namespace, list[x], APPSETTINGS_OUTPUTPATH);
+                Generator.programGenerator("TemplateSaveProgram", list[x].Namespace, list[x], APPSETTINGS_OUTPUTPATH);
             }
         }
     }

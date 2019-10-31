@@ -12,7 +12,7 @@ namespace Generator_.net_framework_
 {
     class GenerateClass
     {
-        public static void generateClass(string languageExtension, Ac4yClass anyType, string outputPath, string[] files)
+        public static void generateClass(Ac4yClass anyType, string outputPath, string[] files)
         {
             string className = anyType.Name;
             string package = anyType.Namespace;
@@ -27,7 +27,7 @@ namespace Generator_.net_framework_
 
             string[] text = new String[0];
 
-            text = readIn("Template", languageExtension);
+            text = readIn("Template");
             
             string replaced = "";
 
@@ -120,27 +120,13 @@ namespace Generator_.net_framework_
                     {
                         Guid id = Guid.NewGuid();
                         
-                        if (languageExtension.Equals("cs"))
-                        {
                             newLine = text[i].Replace("#guid#", id + "");
-                        }
-                        else if (languageExtension.Equals("java"))
-                        {
-                            newLine = "            @GUID(\"" + id + "\")\n";
-                        }
                         replaced = replaced + "\n" + newLine;
                     }
                     else
                     {
 
-                        if (languageExtension.Equals("cs"))
-                        {
                             newLine = text[i].Replace("#guid#", anyType.GUID + "");
-                        }
-                        else if (languageExtension.Equals("java"))
-                        {
-                            newLine = "            @GUID(\"" + anyType.GUID + "\")\n";
-                        }
                         replaced = replaced + "\n" + newLine;
                     }
                 }
@@ -149,11 +135,11 @@ namespace Generator_.net_framework_
                     Guid id = Guid.NewGuid();
                     string newLine = "";
 
-                    if (languageExtension.Equals("cs") && anyType.GUID == null)
+                    if (anyType.GUID == null)
                     {
                         newLine = text[i].Replace("#classGUID#", "            [GUID(\"" + id + "\")]");
                     }
-                    else if(languageExtension.Equals("cs") && anyType.GUID != null)
+                    else if(anyType.GUID != null)
                     {
                         newLine = text[i].Replace("#classGUID#", "            [GUID(\"" + anyType.GUID + "\")]");
                     }
@@ -170,18 +156,18 @@ namespace Generator_.net_framework_
             replaced = replaced.Replace("#namespaceName#", package);
 
             replaced = replaced.Replace("#className#", className + "PreProcessed");
-            writeOut(replaced, className, languageExtension, outputPath);
+            writeOut(replaced, className, outputPath);
 
-            GenerateClassAlgebra.generateClass("Template", languageExtension, package, className, map, outputPath, files);
-            ApiMethodGenerator.generateApiMethods("Template", languageExtension, package, className, map, outputPath);
-            GenerateResponseModel.generateResponseModel(languageExtension, package, outputPath);
+            GenerateClassAlgebra.generateClass("Template", package, className, map, outputPath, files);
+            ApiMethodGenerator.generateApiMethods("Template", package, className, map, outputPath);
+            GenerateResponseModel.generateResponseModel(className, outputPath);
             
         }
 
-        public static string[] readIn(string fileName, string languageExtension)
+        public static string[] readIn(string fileName)
         {
 
-            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\Templates\\", fileName + "PreProcessed." + languageExtension + "T");
+            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\Templates\\", fileName + "PreProcessed.csT");
 
             string[] text = File.ReadAllLines(textFile);
 
@@ -190,9 +176,9 @@ namespace Generator_.net_framework_
 
         }
 
-        public static void writeOut(string text, string fileName, string languageExtension, string outputPath)
+        public static void writeOut(string text, string fileName, string outputPath)
         {
-            System.IO.File.WriteAllText(outputPath + fileName + "PreProcessed." + languageExtension, text);
+            System.IO.File.WriteAllText(outputPath + fileName + "PreProcessed.cs", text);
 
         }
     }

@@ -8,9 +8,9 @@ namespace Generator_.net_framework_
 {
     class GenerateClassAlgebra
     {
-        public static void generateClass(string templateName, string languageExtension, string package, string className, List<Ac4yProperty> map, string outputPath, string[] files)
+        public static void generateClass(string templateName, string package, string className, List<Ac4yProperty> map, string outputPath, string[] files)
         {
-            string[] text = readIn(templateName, languageExtension);
+            string[] text = readIn(templateName);
 
             string replaced = "";
             string newLine = "";
@@ -165,18 +165,16 @@ namespace Generator_.net_framework_
             replaced = replaced.Replace("#className#", className + "Algebra");
             replaced = replaced.Replace("#parentClassName#", className + "PreProcessed");
 
-            writeOut(replaced, className, languageExtension, outputPath);
+            writeOut(replaced, className, outputPath);
 
-            if (!languageExtension.Equals("js"))
-            {
-                GenerateClassEmpty.generateClass(templateName, languageExtension, package, className, outputPath, files);
-            }
+            GenerateClassEmpty.generateClass(templateName, package, className, outputPath, files);
+            
         }
 
-        public static string[] readIn(string fileName, string languageExtension)
+        public static string[] readIn(string fileName)
         {
 
-            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\Templates\\", fileName + "Algebra." + languageExtension + "T");
+            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\Templates\\", fileName + "Algebra.csT");
             
             string[] text = File.ReadAllLines(textFile);
 
@@ -185,9 +183,9 @@ namespace Generator_.net_framework_
 
         }
 
-        public static void writeOut(string text, string fileName, string languageExtension, string outputPath)
+        public static void writeOut(string text, string fileName, string outputPath)
         {
-            File.WriteAllText(outputPath + fileName + "Algebra." + languageExtension, text);
+            File.WriteAllText(outputPath + fileName + "Algebra.cs", text);
 
         }
     }

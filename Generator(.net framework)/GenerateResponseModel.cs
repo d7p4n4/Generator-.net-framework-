@@ -9,9 +9,9 @@ namespace Generator_.net_framework_
 {
     class GenerateResponseModel
     {
-        public static void generateResponseModel(string languageExtension, string package, string outputPath)
+        public static void generateResponseModel(string className, string outputPath)
         {
-            string[] text = readIn("TemplateObjectResponseModel", languageExtension);
+            string[] text = readIn("TemplateObjectResponseModel");
 
             string replaced = "";
 
@@ -20,24 +20,24 @@ namespace Generator_.net_framework_
                 replaced = replaced + text[i] + "\n";
             }
 
-            replaced = replaced.Replace("#namespaceName#", package + "Api");
+            replaced = replaced.Replace("#namespaceName#", className);
 
-            writeOut(replaced, "ResponseModel", languageExtension, outputPath);
+            writeOut(replaced, className + "ResponseModel", outputPath);
         }
 
-        public static string[] readIn(string fileName, string languageExtension)
+        public static string[] readIn(string fileName)
         {
 
-            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\Templates\\", fileName + "." + languageExtension + "T");
+            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\Templates\\", fileName + ".csT");
 
             string[] text = File.ReadAllLines(textFile);
 
             return text;
         }
 
-        public static void writeOut(string text, string fileName, string languageExtension, string outputPath)
+        public static void writeOut(string text, string fileName, string outputPath)
         {
-            File.WriteAllText(outputPath + fileName + "." + languageExtension, text);
+            File.WriteAllText(outputPath + fileName + ".cs", text);
 
         }
     }
