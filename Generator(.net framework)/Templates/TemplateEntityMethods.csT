@@ -4,20 +4,20 @@ using System.Linq;
 using System.Text;
 
 
-namespace #namespaceName#
+namespace #className#Api
 {
     public class #mainClassName#EntityMethods
     {
 #findFirstBy#
-        public static #className# findFirstBy#PropName#(#type# #propName#)
+        public static #className#s findFirstBy#PropName#(#type# #propName#)
         {
-            #className# #valueName# = null;
+            #className#s #valueName# = null;
 
             using (var ctx = new #classContextName#())
             {
                 var query = ctx.#contextPropName#
                                 .Where(ss => ss.#propName# == #propName#)
-                                .FirstOrDefault<#className#>();
+                                .FirstOrDefault<#className#s>();
 
                 #valueName# = query;
             }
@@ -25,9 +25,9 @@ namespace #namespaceName#
         }
 
 #findListBy#
-        public static List<#className#> findListBy#PropName#(#type# #propName#)
+        public static List<#className#s> findListBy#PropName#(#type# #propName#)
         {
-            List<#className#> #valueName# = new List<#className#>();
+            List<#className#s> #valueName# = new List<#className#s>();
 
             using (var ctx = new #classContextName#())
             {
@@ -40,15 +40,15 @@ namespace #namespaceName#
         }
 
 #exists#
-	public Boolean existsIn#className#By#PropName#(#type# #propName#)
+	public Boolean existsIn#className#sBy#PropName#(#type# #propName#)
 	{
-		#className# #valueName# = null;
+		#className#s #valueName# = null;
 
             using (var ctx = new #classContextName#())
             {
                 var query = ctx.#contextPropName#
                                 .Where(ss => ss.#propName# == #propName#)
-                                .FirstOrDefault<#className#>();
+                                .FirstOrDefault<#className#s>();
 
                 #valueName# = query;
             }
@@ -63,7 +63,7 @@ namespace #namespaceName#
 	}
 	
 #update#
-		public void update#className#(#className# updated#className#)
+		public void update#className#(#className#s updated#className#)
         {
             using(var ctx = new #classContextName#())
             {
@@ -88,11 +88,11 @@ namespace #namespaceName#
         }
 
 #adds#
-	public static void addNew#className#(#className# #valueName#)
+	public static void addNew#className#(#className#s _#className#)
 	{
 		using (var ctx = new #classContextName#())
             {
-                ctx.#contextPropName#.Add(#valueName#);
+                ctx.#contextPropName#.Add(_#className#);
 
                 ctx.SaveChanges();
             }

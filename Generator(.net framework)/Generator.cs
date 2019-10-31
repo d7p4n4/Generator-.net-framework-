@@ -171,14 +171,14 @@ namespace Generator_.net_framework_
 
                     foreach(var prop in props)
                     {
-                        newLine = newLine + text[i + 8].Replace("#className", ac4y.Name).Replace("#prop#", prop.Name) + "\n";
+                        newLine = newLine + text[i + 8].Replace("#className#", ac4y.Name).Replace("#prop#", prop.Name) + "\n";
                     }
 
                     newLine = newLine + text[i + 9] + "\n" + text[i + 10] + "\n" + text[i + 11] + "\n";
 
                     replaced = replaced + newLine + "\n";
 
-                    i = i + 9;
+                    i = i + 11;
                 }
                 else if (text[i].Equals("#deleteById#"))
                 {
@@ -210,8 +210,8 @@ namespace Generator_.net_framework_
                         {
                             newLine = newLine + text[i + x] + "\n";
                         }
-                        newLine = newLine.Replace("#className#", ac4y.Name).Replace("#valueName#", ac4y.Name.Substring(0, 1).ToLower())
-                                             .Replace("#classContextName#", ac4y.Name + "Context").Replace("#contextPropName#", ac4y.Name + "s");
+                        newLine = newLine.Replace("#className#", ac4y.Name).Replace("#classContextName#", ac4y.Name + "Context")
+                                         .Replace("#contextPropName#", ac4y.Name + "s");
 
                         y = y + 1;
                     
@@ -228,7 +228,7 @@ namespace Generator_.net_framework_
                 newLine = "";
             }
 
-            replaced = replaced.Replace("#namespaceName#", namespaceName);
+            replaced = replaced.Replace("#className#", ac4y.Name);
             replaced = replaced.Replace("#mainClassName#", ac4y.Name);
 
             writeOut(replaced, ac4y.Name + "EntityMethods", languageExtension, outputPath);

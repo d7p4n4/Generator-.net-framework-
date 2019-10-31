@@ -101,13 +101,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="Templates\Template.csT" />
-    <None Include="Templates\Template.javaT" />
-    <None Include="Templates\Template.jsT" />
     <None Include="Templates\TemplateAlgebra.csT" />
-    <None Include="Templates\TemplateAlgebra.javaT" />
-    <None Include="Templates\TemplateAlgebra.jsT" />
-    <None Include="Templates\TemplateBase.javaT" />
-    <None Include="Templates\TemplatePreProcessed.jsT" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Generated\" />

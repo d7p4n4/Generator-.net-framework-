@@ -20,7 +20,7 @@ namespace Generator_.net_framework_
                 replaced = replaced + text[i] + "\n";
             }
 
-            replaced = replaced.Replace("#namespaceName#", package);
+            replaced = replaced.Replace("#namespaceName#", package + "Api");
 
             writeOut(replaced, "ResponseModel", languageExtension, outputPath);
         }

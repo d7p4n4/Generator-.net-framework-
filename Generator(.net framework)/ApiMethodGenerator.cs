@@ -34,7 +34,7 @@ namespace Generator_.net_framework_
                         
                     }
 
-                    i = i + 9;
+                    i = i + 10;
                 }
                 else if (text[i].Equals("#getListBy#"))
                 {
@@ -48,7 +48,7 @@ namespace Generator_.net_framework_
                                             + "\n" + text[i + 10] + "\n" + text[i + 11] + "\n";
                         replaced = replaced + newLine + "\n\n";
                     }
-                    i = i + 10;
+                    i = i + 11;
                 }
                 else
                 {
@@ -57,7 +57,7 @@ namespace Generator_.net_framework_
 
                 newLine = "";
             }
-            replaced = replaced.Replace("#namespaceName#", package);
+            replaced = replaced.Replace("#namespaceName#", package + "Api");
             replaced = replaced.Replace("#className#", className);
 
             writeOut(replaced, className, languageExtension, outputPath);
