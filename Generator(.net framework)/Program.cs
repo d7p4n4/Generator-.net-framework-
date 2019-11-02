@@ -35,7 +35,7 @@ namespace Generator_.net_framework_
         static void Main(string[] args)
             {
 
-            //Date: 2019. 10. 24. 18:55
+            //Date: 2019. 11. 2. 10:55
 
             log.Debug("path:"+ GetAppConfigStringParameter(APPSETTINGS_CLASSNAME));
 
