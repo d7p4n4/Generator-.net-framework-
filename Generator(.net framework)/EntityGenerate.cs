@@ -14,6 +14,7 @@ namespace Generator_.net_framework_
 
         #region values
         private static readonly string APPSETTINGS_OUTPUTPATH = ConfigurationManager.AppSettings["outputPath"];
+        private static readonly string APPSETTINGS_BASENAME = ConfigurationManager.AppSettings["baseName"];
         #endregion
 
         public static void entityGenerateMethods(string[] files)
@@ -28,12 +29,14 @@ namespace Generator_.net_framework_
                 list.Add(DeserialiseMethod.deser(_file));
             }
 
+
+            Generator.contextGenerate(APPSETTINGS_BASENAME, "Contexts", "Template", APPSETTINGS_OUTPUTPATH, list);
+
+
             for (var x = 0; x < files2.Length; x++)
             {
                 string _filename = Path.GetFileNameWithoutExtension(files2[x]);
-                
-                Generator.contextGenerate(list[x], list[x].Name + "Db", list[x].Namespace, "Template", APPSETTINGS_OUTPUTPATH);
-            
+                            
                 Generator.generateEntityMethods("TemplateEntityMethods", list[x].Namespace, list[x], APPSETTINGS_OUTPUTPATH);
 
                 Generator.programGenerator("TemplateSaveProgram", list[x].Namespace, list[x], APPSETTINGS_OUTPUTPATH);

@@ -28,7 +28,7 @@ namespace #className#DataAccess
         public ResponseModel GetListBy#Prop#(#type# id)
         {
             ResponseModel _objResponseModel = new ResponseModel();
-            List<#className#s> _#className# = #className#EntityMethods.findListBy#Prop#(id);
+            List<#className#> _#className# = #className#EntityMethods.findListBy#Prop#(id);
 
             _objResponseModel.Data = _#className#;
             _objResponseModel.Status = true;
@@ -37,7 +37,7 @@ namespace #className#DataAccess
             return _objResponseModel;
         }
 
-        public void Post(#className#s _#className#)
+        public void Post(#className# _#className#)
         {
             #className#EntityMethods.addNew#className#(_#className#);
         }
@@ -47,7 +47,7 @@ namespace #className#DataAccess
             #className#EntityMethods.deleteById(id);
         }
 
-        public void Update(#className#s _#className#)
+        public void Update(#className# _#className#)
         {
             #className#EntityMethods _entityMethods = new #className#EntityMethods();
 

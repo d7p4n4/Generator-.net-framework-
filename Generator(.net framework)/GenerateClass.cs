@@ -16,6 +16,7 @@ namespace Generator_.net_framework_
         {
             string className = anyType.Name;
             string package = anyType.Namespace;
+            Boolean guidExists = false;
 
             //get the properties and its type
             List<Ac4yProperty> map = anyType.PropertyList;
@@ -74,10 +75,25 @@ namespace Generator_.net_framework_
                 {
                     foreach (var pair in map)
                     {
+                        if (pair.Name.Equals("GUID"))
+                        {
+                            guidExists = true;
+                        }
+
                         string newLine = "";
 
                         newLine = newLine + text[i + 1].Replace("#type#", pair.Type);
                         newLine = newLine.Replace("#prop#", pair.Name);
+
+                        replaced = replaced + "\n" + newLine;
+                    }
+
+                    if (!guidExists)
+                    {
+                        string newLine = "";
+
+                        newLine = newLine + text[i + 1].Replace("#type#", "string");
+                        newLine = newLine.Replace("#prop#", "GUID");
 
                         replaced = replaced + "\n" + newLine;
                     }

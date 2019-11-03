@@ -100,8 +100,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="Templates\Template.csT" />
-    <None Include="Templates\TemplateAlgebra.csT" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Generated\" />

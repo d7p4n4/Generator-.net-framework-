@@ -10,7 +10,7 @@ namespace Generator_.net_framework_
 {
     class Generator
     {
-        public static void contextGenerate(Ac4yClass ac4y, string baseName, string namespaceName, string fileName, string outputPath)
+        public static void contextGenerate(string baseName, string namespaceName, string fileName, string outputPath, List<Ac4yClass> list)
         {
             string[] text = readIn(fileName + "Context");
             string replaced = "";
@@ -25,20 +25,23 @@ namespace Generator_.net_framework_
             {
                 if (text[i].Equals("#classes#"))
                 {
+                    foreach (var ac4y in list)
+                    {
                         newLine = newLine + text[i + 1].Replace("#classesName#", ac4y.Name).Replace("#tableName#", ac4y.Name + "s") + "\n";
-                        newLine = newLine + text[i + 2] + "\n";
+                        newLine = newLine + "\n";
+                    }
                     
                     replaced = replaced + newLine + "\n";
 
 
-                    i = i + 3;
+                    i = i + 2;
                 }
 
                 replaced = replaced + text[i] + "\n";
             }
-            replaced = replaced.Replace("#className#", ac4y.Name).Replace("#baseName#", baseName).Replace("#namespaceName#", namespaceName);
+            replaced = replaced.Replace("#className#", "All").Replace("#baseName#", baseName).Replace("#namespaceName#", namespaceName);
 
-            writeOut(replaced, ac4y.Name + "Context", outputPath);
+            writeOut(replaced, "AllContext", outputPath);
         }
 
         public static void programGenerator(string fileName, string namespaceName, Ac4yClass ac4y, string outputPath)

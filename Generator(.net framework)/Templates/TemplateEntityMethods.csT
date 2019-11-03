@@ -4,20 +4,20 @@ using System.Linq;
 using System.Text;
 
 
-namespace #className#Api
+namespace #className#
 {
-    public class #mainClassName#EntityMethods
+    public class #mainClassName#EntityMethods : #mainClassName#Algebra
     {
 #findFirstBy#
-        public static #className#s findFirstBy#PropName#(#type# #propName#)
+        public #className# findFirstBy#PropName#(#type# #propName#)
         {
-            #className#s #valueName# = null;
+            #className# #valueName# = null;
 
-            using (var ctx = new #classContextName#())
+            using (var ctx = new AllContext())
             {
                 var query = ctx.#contextPropName#
                                 .Where(ss => ss.#propName# == #propName#)
-                                .FirstOrDefault<#className#s>();
+                                .FirstOrDefault<#className#Algebra>();
 
                 #valueName# = query;
             }
@@ -25,11 +25,11 @@ namespace #className#Api
         }
 
 #findListBy#
-        public static List<#className#s> findListBy#PropName#(#type# #propName#)
+        public List<#className#> findListBy#PropName#(#type# #propName#)
         {
-            List<#className#s> #valueName# = new List<#className#s>();
+            List<#className#> #valueName# = new List<#className#>();
 
-            using (var ctx = new #classContextName#())
+            using (var ctx = new AllContext())
             {
                 var query = ctx.#contextPropName#
                                 .Where(ss => ss.#propName# == #propName#).ToList();
@@ -40,15 +40,15 @@ namespace #className#Api
         }
 
 #exists#
-	public Boolean existsIn#className#sBy#PropName#(#type# #propName#)
+	public Boolean existsBy#PropName#(#type# #propName#)
 	{
-		#className#s #valueName# = null;
+		#className# #valueName# = null;
 
-            using (var ctx = new #classContextName#())
+            using (var ctx = new AllContext())
             {
                 var query = ctx.#contextPropName#
                                 .Where(ss => ss.#propName# == #propName#)
-                                .FirstOrDefault<#className#s>();
+                                .FirstOrDefault<#className#>();
 
                 #valueName# = query;
             }
@@ -63,9 +63,9 @@ namespace #className#Api
 	}
 	
 #update#
-		public void update#className#(#className#s updated#className#)
+		public void update(#className# updated#className#)
         {
-            using(var ctx = new #classContextName#())
+            using(var ctx = new AllContext())
             {
                 var _#className# = ctx.#contextPropName#
 				.Where(ss => ss.id == updated#className#.id).FirstOrDefault();
@@ -76,9 +76,9 @@ namespace #className#Api
         }
 
 #deleteById#
-        public static void deleteById(#type# #propName#)
+        public void deleteById(#type# #propName#)
         {
-            using (var ctx = new #classContextName#())
+            using (var ctx = new AllContext())
             {
                 var query = ctx.#contextPropName#
                                 .Remove(ctx.#contextPropName#.Single(ss => ss.#propName# == #propName#));
@@ -88,9 +88,9 @@ namespace #className#Api
         }
 
 #adds#
-	public static void addNew#className#(#className#s _#className#)
+	public void addNew(#className# _#className#)
 	{
-		using (var ctx = new #classContextName#())
+		using (var ctx = new AllContext())
             {
                 ctx.#contextPropName#.Add(_#className#);
 
